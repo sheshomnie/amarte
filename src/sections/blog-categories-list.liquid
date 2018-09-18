@@ -1,0 +1,104 @@
+{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+{%- assign pageUrl = contentForQuerystring | split:'"pageurl":"' | last | split:'"' | first | split:'.myshopify.com' | last | replace:'\/','/' | replace:'%20',' ' | replace:'\u0026','&' -%}
+
+{%- for i in (1..1) -%}
+    {%- unless pageUrl contains "?" -%}{% break %}{%- endunless -%}
+    {%- assign pageQuerystring = pageUrl | split:'?' | last -%}
+    {%- assign parts = pageQuerystring | split:'&' -%}
+        {%- for part in parts -%}
+        {%- assign keyAndValue = part | split:'=' -%}
+        {%- if keyAndValue.size > 1 -%}
+            {% if keyAndValue[0] == 'sortby' %}
+                {%- assign sortBy = keyAndValue[1] -%}
+            {% endif %}
+        {% endif %}
+    {%- endfor -%}
+{%- endfor -%}
+{% if section.blocks.size > 0 %}
+    {% for block in section.blocks %}
+        {% assign handle = block.settings.blog_category %}
+        {% assign blog_cat = blogs[handle] %}
+        {% if blog_cat.articles.size > 0 %}
+            <section class="fl-fix pos-r press-layout-2">
+                <div class="full-wrapper">
+                    <div class="heading-box pos-r type-2">
+                        <h3 class="title h5">{{ blog_cat.title | escape }}</h3>
+                        <a href="{{ blog_cat.url }}" class="btn" aria-label="{{ 'blogs.article.read_all' | t }}"><span>{{ 'blogs.article.read_all' | t }}</span></a>
+                    </div>
+                    <ul class="{% if blog_cat.articles.size > 0 %}press-slider {% endif %}layout-2 col-3">
+                        {% if sortBy == 'name_asc' %}
+                            {% assign articles = blog_cat.articles | sort: 'title' %}
+                        {% elsif sortBy == 'name_desc' %}
+                            {% assign articles = blog_cat.articles | sort: "title" | reverse %}
+                        {% elsif sortBy == 'date_asc' %}
+                            {% assign articles = blog_cat.articles | sort: "published_at" %}
+                        {% elsif sortBy == 'date_desc' %}
+                            {% assign articles = blog_cat.articles | sort: "published_at" | reverse %}
+                        {% else %}
+                            {% assign articles = blog_cat.articles | sort: 'title' %}
+                        {% endif %}
+                        {% for article in articles %}
+                            <li class="pos-r col">
+                                <div class="item fl-fix d-f fxd-c">
+                                    <div class="item-box fl-fix">
+                                        <figure class="fl-fix bgsz-cv pos-r" style="background-image:url({{ article.image | img_url: 'master' }});">
+                                            <a href="{{ article.url }}" class="d-b pos-r">
+                                                <img src="{{ 'about-press-placeholder.gif' | asset_url }}" alt="about-press-placeholder" class="bgsz-cv-img">
+                                            </a>
+                                        </figure>
+                                        <div class="title-box fl-fix">
+                                            <div class="magazine"><a href="{{ article.url }}">{{ article.excerpt }}</a></div>
+                                            <h4 class="title"> <a href="{{ article.url }}">{{ article.title }}</a></h4>
+                                        </div>
+                                    </div>
+                                    <div class="tag-box fl-fix">
+                                        <div class="date"><span>{{ article.published_at | time_tag: format: 'month_day_year' }}</span></div>
+                                        <div class="tags tt-u">{{ article.tags | join: ', ' }}</div>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </section>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% schema %}
+{
+    "name": {
+      "en": "Blog Categories"
+    },
+    "settings": [
+        {
+            "type": "range",
+            "id": "recent_post_count",
+            "label": {
+              "en": "Post Count"
+            },
+            "min": 1,
+            "max": 10,
+            "default": 5,
+            "step":1
+        }
+    ],
+    "blocks": [
+    {
+        "type": "image",
+        "name": {
+            "en": "Blog Categories"
+        },
+        "settings": [
+            {
+                "type": "blog",
+                "id" : "blog_category",
+                "label" : {
+                    "en" : "Select Blog Category"
+                }
+            }
+        ]
+    }
+    ]
+}
+{% endschema %}

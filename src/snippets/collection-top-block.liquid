@@ -1,0 +1,17 @@
+{% if section.settings.header_bkgd_img %}
+<figure>
+  <img src="{{ section.settings.header_bkgd_img | img_url:'300x300' }}" />
+</figure>
+
+{% if section.settings.banner_heading %}
+<h1>{{ section.settings.banner_heading }}</h1>
+{% endif %}
+
+{% if section.settings.banner_desc %}
+<p>{{ section.settings.banner_desc }}</p>
+{% endif %}
+
+{% if section.settings.button_link %}
+<a href="{{ section.settings.button_link }}">{{ section.settings.button_text | default:'Buy it Now' }}</a>
+{% endif %}
+{% endif %}

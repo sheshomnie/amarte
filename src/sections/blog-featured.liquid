@@ -1,0 +1,67 @@
+{% if section.settings.featured_post %}
+    <section class="fl-fix bg-white ov-h feature-layout">
+        <div class="full-wrapper">
+            {% if section.settings.featured_heading %}
+                <div class="heading-box pos-r type-2">
+                    <h3 class="title h5">{{ section.settings.featured_heading }}</h3>
+                </div>
+            {% endif %}
+            <ul class="fl-fix">
+                {% assign featured_post_handle = section.settings.featured_post %}
+                {% if articles[featured_post_handle].id %}
+                    {% assign post = articles[featured_post_handle] %}
+                    <li class="d-tb tbl-f w100 item">
+                        <figure class="bgsz-cv d-tbc w50 ov-h va-m pos-r bgp-cc" style="background-image: url({{ post.image | img_url: 'master' }});">
+                            <img src="{{ 'featured-placeholder.gif' | asset_url }}" alt="about-layout-placeholder" class="w100"> 
+                        </figure>
+                        <div class="d-tbc w50 va-m pos-r">
+                            <div class="center-maker">
+                                <div class="wrapper">
+                                    <div class="text-box">
+                                        <div class="logo-box fl-fix">
+                                            <a href="{{ article.url }}">{{ post.excerpt }}</a>
+                                            {% comment %} <img src="{{ section.settings.featured_post_logo | img_url: 'master' }}" alt="logo-vogue">  {% endcomment %}
+                                        </div>
+                                        <div class="title-box fl-fix">
+                                            <h3 class="h5 title"><a href="{{ article.url }}">{{ post.title }}</a></h3>
+                                        </div>
+                                        <div class="info-box fl-fix">
+                                            <p>{{ post.content | strip_html | truncate:400 }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </section>
+{% endif %}
+
+{% schema %}
+    {
+        "name": {
+            "en": "Featured Post"
+        },
+        "settings": [
+            {
+                "type": "text",
+                "id":   "featured_heading",
+                "label":  "Featured Section Heading"
+            },
+            {
+                "type": "article",
+                "id": "featured_post",
+                "label": {
+                "en": "Featured Post"
+                }
+            },
+            {
+                "type": "image_picker",
+                "id": "featured_post_logo",
+                "label": "Featured Post Logo"
+            }
+        ]
+    }
+{% endschema %}

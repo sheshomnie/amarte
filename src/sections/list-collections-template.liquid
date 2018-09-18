@@ -1,0 +1,403 @@
+<section class="fl-fix pos-r home-banner catalogue">
+    <div class="fl-fix top-banner">
+        <figure class="bgsz-cv" style="background-image:url({{ section.settings.header_bkgd_img | img_url:'master' }});">
+            <img src="{{ section.settings.header_bkgd_img | img_url:'master' }}" alt="{{ section.settings.header_bkgd_img.alt }}" class="bgsz-cv-img">
+            <figcaption class="caption pos-a">
+                <div class="small-wrapper">
+                    <div class="text-box ta-c">
+                        {% if section.settings.banner_heading %}
+                            <h1 class="h2 title d-ib tt-u">{{ section.settings.banner_heading }}</h1>
+                        {% endif %}
+                        
+                        <div class="short-info">
+                            {% if section.settings.banner_desc %}
+                                <p>{{ section.settings.banner_desc }}</p>
+                            {% endif %}
+                            {% if section.settings.button_link %}
+                                <a href="{{ section.settings.button_link }}" class="btn btn-black"><span>{{ section.settings.button_text | default:'Buy it Now' }}</span></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </figcaption>
+        </figure>
+    </div>
+</section>
+{%- assign blocks = section.blocks | sort: 'collection.all_products_count' -%}
+<section class="fl-fix pos-r cat-nav catalogue-nav">
+    <div class="wrapper pos-r">
+        {% if collections.size > 0 %}
+            <ul class="fl-fix">
+                {% for block in section.blocks %}
+                    {%- assign collection = collections[block.settings.collection] -%}
+                    {% if collection.products.size > 0 %}
+                        <li>
+                            <a class="btn transparent border btn-black" href="#{{ collection.handle }}"><span>{{ collection.title }}</span></a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <div class="contact-box pos-a">
+            <a class="btn transparent border btn-black" href="/products"><span>Collections</span></a>
+        </div>
+    </div>
+</section>
+{% if collections.size > 0 %}
+    {% for block in section.blocks %}
+        {%- assign collection = collections[block.settings.collection] -%}
+        {% if collection.products.size > 0 %}
+            <section class="fl-fix fluid-wrap bg-peach-1 catalogue-seller {{ collection.handle }}">
+                <div class="full-wrapper">
+                    <div class="zigzag-grid fl-fix pos-r odd">
+                        <div class="title-box grid-title ta-c">
+                            <h2 class="h1 title tt-u">{{ collection.title }}</h2>
+                        </div>
+                        <ul class="fl-fix grid">
+                            {% for product in collection.products %}
+                                {% include 'bold-product' with product, hide_action: 'skip' %}
+                                <li class="item">
+                                    <figure class="fl-fix bgsz-cv pos-r" style="background-image:url({{ product.featured_image | img_url: 'master' }});">
+                                        <a href="{{ product.url }}" class="d-b pos-r">
+                                            <img src="{{ 'product-placeholder.gif' | asset_url }}" alt="product-placeholder" class="bgsz-cv-img">
+                                        </a>
+                                    </figure>
+                                    <div class="info-box fl-fix">
+                                        <div class="title-box">
+                                            <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                                            <h3 class="title product-name"> <a href="{{ product.url }}">{{ product.title }}</a></h3>
+                                        </div>
+                                        <div class="price-box">
+                                            <div class="seen-box">
+                                                <a class="link pos-r d-ib as-seen-in" href="javascript:void(0)">AS SEEN IN</a>
+                                            </div>
+                                            <div class="asseenin-logo" style="display:none;">
+                                                <ul>
+                                                    {% for image in product.images %}
+                                                        {% if image.alt != 'logo-asseenin' %}
+                                                            {% continue %}
+                                                        {% endif %}
+                                                        <li><img class="logo-row__image" src="{{ image | img_url: '200x200' }}" alt="{{ image.alt | escape }}"></li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                            <div class="price">
+                                                <span>{{ bold_price | money }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+<section class="fl-fix fluid-wrap pos-r spa-collection-section">
+    <div class="full-wrapper">
+        <div class="heading-box ta-c pos-r">
+            {% if section.settings.bottom_collection_title %}
+                <h3 class="title">{{ section.settings.bottom_collection_title }}</h3>
+            {% endif %}
+        </div>
+        <div class="col">
+            <div class="top-rated">
+                {% if section.settings.bottom_collection_img %}
+                    <figure class="fl-fix bgsz-cv pos-r" style="background-image:url({{ section.settings.bottom_collection_img | img_url:'master' }});">
+                        <a href="#" class="d-b pos-r">
+                            <img src="{{ 'spa-collection-placeholder.png' | asset_url }}" alt="press-placeholder" class="bgsz-cv-img">
+                        </a>
+                    </figure>
+                {% endif %}
+            </div>
+            {% if section.settings.bottom_collection_desc %}
+                <div class="spa-collection-desc">
+                    <p>{{ section.settings.bottom_collection_desc }}</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Collections list page",
+      "de": "Kategorien-Liste Seite",
+      "fr": "Liste des collections",
+      "it": "Elenco collezioni",
+      "ja": "コレクションリストのページ",
+      "es": "Lista de colecciones",
+      "pt-BR": "Lista de coleções"
+    },
+    "settings": [
+	  {
+        "type": "text",
+        "label": "Banner Heading",
+        "id": "banner_heading"
+      },
+		{
+        "type": "textarea",
+        "label": "Banner Description",
+        "id": "banner_desc"
+      },
+		{
+        "type": "text",
+        "label": "Button Text",
+        "id": "button_text"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button Link"
+      },
+		{
+        "type": "image_picker",
+        "id": "header_bkgd_img",
+        "label": "Header Background Image"
+      },
+      {
+        "type": "text",
+        "label": "Bottom collection title",
+        "id": "bottom_collection_title"
+      },
+      {
+        "type": "image_picker",
+        "id": "bottom_collection_img",
+        "label": "Bottom Collection Image"
+      },
+      {
+        "type": "textarea",
+        "id": "bottom_collection_desc",
+        "label": "Bottom Collection Description"
+      },
+      {
+        "type": "product",
+        "id": "bottom_collection_product",
+        "label": "Bottom collection product",
+        "info": "Product for which rating needs to show"
+      },
+      {
+        "type": "paragraph",
+        "content": {
+          "en": "All of your collections are listed by default. To customize your list, choose 'Selected' and add collections.",
+          "de": "Alle kategorien sind automatisch gelistet. Zum Ändern der Liste wählen Sie 'Ausgewählt' und fügen Sie Kategorien hinzu.",
+          "fr": "Toutes vos collections sont listées par défaut. Pour personaliser votre liste, cliquez sur « Sélection » et ajoutez des collections.",
+          "it": "Tutte le tue collezioni vengono elencate per impostazione predefinita. Per personalizzare il tuo elenco, scegli \"Selezionato\" e aggiungi delle collezioni.",
+          "ja": "すべてのコレクションがデフォルトで一覧表示されます。一覧をカスタマイズするには、「選択済み」を選択してコレクションを追加します。",
+          "es": "Todas tus colecciones están enlistadas por defecto. Para personalizar tu lista, elige 'Seleccionadas' y agrega colecciones.",
+          "pt-BR": "Todas as suas coleções são listadas por padrão. Para personalizar sua lista, escolha \"Selecionado\" e adicione coleções."
+        }
+      },
+      {
+        "type": "collection",
+        "id": "right_collection",
+        "label" : {
+            "en"    :   "Select Right Collection"
+        }
+      },
+      {
+        "type": "radio",
+        "id": "display_type",
+        "label": {
+          "en": "Select collections to show",
+          "de": "Collections auswählen, die angezeigt werden sollen",
+          "fr": "Sélectionner les collections à afficher",
+          "it": "Seleziona le collezioni da mostrare",
+          "ja": "表示するコレクションを選択する",
+          "es": "Selecciona colecciones para mostrar",
+          "pt-BR": "Selecione coleções para exibir"
+        },
+        "default": "all",
+        "options": [
+          {
+            "value": "all",
+            "label": {
+              "en": "All",
+              "de": "Alle",
+              "fr": "Toutes",
+              "it": "Tutti",
+              "ja": "すべて",
+              "es": "Todas",
+              "pt-BR": "Tudo"
+            }
+          },
+          {
+            "value": "selected",
+            "label": {
+              "en": "Selected",
+              "de": "Ausgewählt",
+              "fr": "Sélection",
+              "it": "Selezionato",
+              "ja": "選択済み",
+              "es": "Seleccionadas",
+              "pt-BR": "Selecionado"
+            }
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "sort",
+        "label": {
+          "en": "Sort collections by:",
+          "de": "Kategorien sortieren nach:",
+          "fr": "Trier les collections par:",
+          "it": "Ordina le collezioni per:",
+          "ja": "コレクションの並べ替え方法:",
+          "es": "Ordenar colecciones por:",
+          "pt-BR": "Ordenar coleções por:"
+        },
+        "info": {
+          "en": "Sorting only applies when 'All' is selected",
+          "de": "Sortieren funktioniert nur, wenn 'Alle' ausgewählt ist",
+          "fr": "Le tri ne s'applique que lorsque “Toutes“ est sélectionné",
+          "it": "L'ordinamento viene applicato solo quanto è selezionato \"Tutto\"",
+          "ja": "「すべて」が選択されている場合にのみ並べ替えを適用する",
+          "es": "La función ordenar solo se aplica cuando se selecciona \"Todas\"",
+          "pt-BR": "A classificação só se aplica quando \"Tudo\" está selecionado"
+        },
+        "default": "alphabetical",
+        "options": [
+          {
+            "value": "products_high",
+            "label": {
+              "en": "Product count, high to low",
+              "de": "Produktanzahl, hoch zu niedrig",
+              "fr": "Nombre de produits, ordre décroissant",
+              "it": "Conteggio decrescente prodotti",
+              "ja": "商品数の多い順",
+              "es": "Recuento de productos, de mayor a menor",
+              "pt-BR": "Contagem de produtos, alta para baixa"
+            }
+          },
+          {
+            "value": "products_low",
+            "label": {
+              "en": "Product count, low to high",
+              "de": "Produktanzahl, niedrig zu hoch",
+              "fr": "Nombre de produits, ordre croissant",
+              "it": "Conteggio crescente prodotti",
+              "ja": "商品数の少ない順",
+              "es": "Recuento de productos, de menor a mayor",
+              "pt-BR": "Contagem de produtos, baixa para alta"
+            }
+          },
+          {
+            "value": "alphabetical",
+            "label": {
+              "en": "Alphabetically, A-Z",
+              "de": "Alphabetisch, A-Z",
+              "fr": "Alphabétique, A-Z",
+              "it": "In ordine alfabetico, A - Z",
+              "ja": "アルファベット順、 A-Z",
+              "es": "Alfabéticamente, A-Z",
+              "pt-BR": "Ordem alfabética, A–Z"
+            }
+          },
+          {
+            "value": "alphabetical_reversed",
+            "label": {
+              "en": "Alphabetically, Z-A",
+              "de": "Alphabetisch, Z-A",
+              "fr": "Alphabétique, Z-A",
+              "it": "In ordine alfabetico, Z - A",
+              "ja": "アルファベット順、 Z-A",
+              "es": "Alfabéticamente, Z-A",
+              "pt-BR": "Ordem alfabética, Z–A"
+            }
+          },
+          {
+            "value": "date",
+            "label": {
+              "en": "Date, old to new",
+              "de": "Datum, alt zu neu",
+              "fr": "Date, anciennes à récentes",
+              "it": "Data, dal più vecchio al più recente",
+              "ja": "古い商品順",
+              "es": "Fecha: antiguo(a) a reciente",
+              "pt-BR": "Data, mais antiga primeiro"
+            }
+          },
+          {
+            "value": "date_reversed",
+            "label": {
+              "en": "Date, new to old",
+              "de": "Datum, neu zu alt",
+              "fr": "Date, récentes à anciennes",
+              "it": "Data, dal più recente al più vecchio",
+              "ja": "新着順",
+              "es": "Fecha: reciente a antiguo(a)",
+              "pt-BR": "Data, mais recente primeiro"
+            }
+          }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "grid",
+        "label": {
+          "en": "Collections per row",
+          "de": "Kategorien per Reihe",
+          "fr": "Collections par rangée",
+          "it": "Collezioni per riga",
+          "ja": "行あたりのコレクション数",
+          "es": "Colecciones por fila",
+          "pt-BR": "Coleções por linha"
+        },
+        "default": 3,
+        "min": 2,
+        "max": 5,
+        "step": 1
+      }
+    ],
+    "blocks": [
+      {
+        "type": "collection",
+        "name": {
+          "en": "Collection",
+          "de": "Kategorie",
+          "fr": "Collection",
+          "it": "Collezione",
+          "ja": "コレクション",
+          "es": "Colección",
+          "pt-BR": "Coleção"
+        },
+        "settings": [
+          {
+            "label": {
+              "en": "Collection",
+              "de": "Kategorie",
+              "fr": "Collection",
+              "it": "Collezione",
+              "ja": "コレクション",
+              "es": "Colección",
+              "pt-BR": "Coleção"
+            },
+            "id": "collection",
+            "type": "collection"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+<script type="text/javascript">
+jQuery(document).ready(function(){
+    jQuery('#right_collection').on('click',function(){
+        jQuery('#default_collection').hide();
+        jQuery('#right_collection_products').show();
+    });
+
+    jQuery('.product_cat a').on('click',function(){
+        if(jQuery('#default_collection').hide()) {
+            jQuery('#default_collection').show();
+            jQuery('#right_collection_products').hide();
+        }
+    });
+});
+</script>

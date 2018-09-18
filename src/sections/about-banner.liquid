@@ -1,0 +1,60 @@
+
+<section class="fl-fix pos-r home-banner">
+    <div class="fl-fix top-banner">
+        <figure class="bgsz-cv" style="background-image:url({{ section.settings.about_banner_image | img_url: 'master' }});"> 
+            <img src="{{ section.settings.about_banner_image | img_url: 'master' }}" alt="" class="bgsz-cv-img">
+            <figcaption class="caption pos-a">
+                <div class="small-wrapper">
+                    <div class="text-box ta-c">
+                        {% if section.settings.about_banner_title != blank %}
+                            <h1 class="h2 title d-ib tt-u">{{ section.settings.about_banner_title | escape }}</h1>
+                        {% endif %}
+                        {% if section.settings.about_banner_text != blank %}
+                            <div class="short-info">
+                                {{ section.settings.about_banner_text }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </figcaption>
+        </figure>
+    </div>
+</section>
+
+{% schema %}
+  {
+    "name": {
+      "en": "About Banner"
+    },
+    "class": "about_banner",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "about_banner_image",
+        "label": {
+          "en": "Image"
+        }
+      },
+      {
+        "type": "text",
+        "id": "about_banner_title",
+        "label": {
+          "en": "Heading"
+        },
+        "default": {
+          "en": "Image with text overlay"
+        }
+      },
+      {
+        "type": "richtext",
+        "id": "about_banner_text",
+        "label": {
+          "en": "Text"
+        },
+        "default": {
+          "en": "<p>Use overlay text to give your customers insight into your brand. Select imagery and text that relates to your style and story.</p>"
+        }
+      }
+    ]
+  }
+{% endschema %}

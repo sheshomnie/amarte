@@ -1,0 +1,651 @@
+{
+  "current": {
+    "color_text": "#3d4246",
+    "color_body_text": "#69727b",
+    "color_sale_text": "#557b97",
+    "color_borders": "#e8e9eb",
+    "color_button": "#557b97",
+    "color_button_text": "#fff",
+    "color_small_button_text_border": "#3d4246",
+    "color_text_field": "#fff",
+    "color_text_field_text": "#000",
+    "color_image_overlay_text": "#fff",
+    "color_image_overlay": "#3d4246",
+    "image_overlay_opacity": 40,
+    "color_body_bg": "#fff",
+    "type_header_font": "work_sans_n6",
+    "type_header_base_size": 26,
+    "type_base_font": "work_sans_n4",
+    "type_base_size": 16,
+    "type_bold_product_titles": false,
+    "share_image": "",
+    "share_facebook": true,
+    "share_twitter": true,
+    "share_pinterest": true,
+    "social_twitter_link": "https://twitter.com/amarteskincare",
+    "social_facebook_link": "https://www.facebook.com/amarteskincare",
+    "social_pinterest_link": "https://www.pinterest.com/amarteskincare/",
+    "social_instagram_link": "https://instagram.com/amarteskincare/",
+    "social_tumblr_link": "",
+    "social_snapchat_link": "",
+    "social_youtube_link": "",
+    "social_vimeo_link": "",
+    "favicon": "",
+    "checkout_header_image": "",
+    "checkout_logo_image": "",
+    "checkout_logo_position": "left",
+    "checkout_logo_size": "medium",
+    "checkout_body_background_image": "",
+    "checkout_body_background_color": "#fff",
+    "checkout_input_background_color_mode": "white",
+    "checkout_sidebar_background_image": "",
+    "checkout_sidebar_background_color": "#fafafa",
+    "checkout_heading_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+    "checkout_body_font": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol'",
+    "checkout_accent_color": "#197bbd",
+    "checkout_button_color": "#197bbd",
+    "checkout_error_color": "#e32c2b",
+    "shop_top_featured": "eyeconic-eye-cream",
+    "top_product_ref": "shopify://products/daily-exfolipowder",
+    "bottom_collection_title": "The Spa Collection",
+    "bottom_collection_img": "shopify://shop_images/Chrysanthemum.jpg",
+    "bottom_collection_desc": "lorem ipsum tesxt",
+    "bottom_collection_product": "daily-exfolipowder",
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "align_logo": "left",
+          "logo": "",
+          "logo_max_width": 100,
+          "main_linklist": "main-menu",
+          "message": false,
+          "home_page_only": false,
+          "message_text": "Announce something here",
+          "message_link": "",
+          "color_bg": "#7796a8",
+          "color_text": "#fff"
+        }
+      },
+      "slideshow": {
+        "type": "slideshow",
+        "blocks": {
+          "slideshow-0": {
+            "type": "image",
+            "settings": {
+              "image": "",
+              "alignment": "top",
+              "title": "Image slide",
+              "subheading": "Tell your brand's story through video and images",
+              "link": ""
+            }
+          },
+          "slideshow-1": {
+            "type": "image",
+            "settings": {
+              "image": "",
+              "alignment": "top",
+              "title": "Image slide",
+              "subheading": "Tell your brand's story through video and images",
+              "link": ""
+            }
+          }
+        },
+        "block_order": [
+          "slideshow-0",
+          "slideshow-1"
+        ],
+        "settings": {
+          "autoplay": true,
+          "autoplay_speed": 7,
+          "slideshow_height": "small",
+          "text_size": "medium"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "footer_linklist": "footer",
+          "footer_linklist_two": "customer-support",
+          "footer_linklist_three": "more",
+          "footer_newsletter_enable": true,
+          "footer_newsletter_subheading": "<p>Subscribe to our newsletter</p>",
+          "footer_bottom": "footer-bottom-menu",
+          "insta_social_heading": "@amarteskincare",
+          "copyright_text": "Amarte USA, LLC",
+          "show_payment_icons": false
+        }
+      },
+      "contact-template": {
+        "type": "contact-template",
+        "settings": {
+          "contact_subheading": "Amarte’s heritage fuses ancient  Eastern skin care philosophy with innovative Western dermatology.",
+          "top_banner_img": "shopify://shop_images/Chrysanthemum.jpg"
+        }
+      },
+      "1534918807639": {
+        "type": "rich-text",
+        "settings": {
+          "full_width": true,
+          "section_title": "",
+          "text": "<p>Free Shipping to USA &amp; Canada</p>",
+          "text_size": "medium"
+        }
+      },
+      "1534918942619": {
+        "type": "collection",
+        "settings": {
+          "title": "Bestsellers",
+          "collection": "bestseller-product-collection",
+          "grid": 1,
+          "rows": 3,
+          "show_vendor": false,
+          "show_view_all": true
+        }
+      },
+      "1534921378329": {
+        "type": "featured-blog",
+        "settings": {
+          "title": "From the press",
+          "blog": "press",
+          "post_limit": 9,
+          "blog_show_author": false,
+          "blog_show_date": true,
+          "show_view_all": true
+        }
+      },
+      "1534921861589": {
+        "type": "custom-content",
+        "blocks": {
+          "1534921872887": {
+            "type": "html",
+            "settings": {
+              "code": "<div id=\"insta-feed\"></div>",
+              "width": "50%"
+            }
+          }
+        },
+        "block_order": [
+          "1534921872887"
+        ],
+        "settings": {
+          "title": ""
+        }
+      },
+      "1534922098174": {
+        "type": "hero",
+        "settings": {
+          "image": "",
+          "alignment": "center",
+          "title": "The ingredients are just the beginning.",
+          "text": "<p>Use overlay text to give your customers insight into your brand. Select imagery and text that relates to your style and story.</p>",
+          "hero_size": "medium",
+          "text_size": "medium",
+          "button_label": "Learn More",
+          "button_link": "shopify://pages/about-us"
+        }
+      },
+      "1534922179359": {
+        "type": "feature-columns",
+        "blocks": {
+          "1534922179359-0": {
+            "type": "text_block",
+            "settings": {
+              "enable_image": true,
+              "image": "",
+              "title": "The Night is Magic.",
+              "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+              "button_label": "Discover",
+              "button_link": "shopify://collections"
+            }
+          },
+          "1534922179359-1": {
+            "type": "text_block",
+            "settings": {
+              "enable_image": true,
+              "image": "",
+              "title": "Shinny Summer",
+              "text": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+              "button_label": "Discover",
+              "button_link": "shopify://collections"
+            }
+          },
+          "1534923023892": {
+            "type": "text_block",
+            "settings": {
+              "enable_image": false,
+              "image": "",
+              "title": "",
+              "text": "",
+              "button_label": "See our Collections",
+              "button_link": "/products"
+            }
+          }
+        },
+        "block_order": [
+          "1534922179359-0",
+          "1534922179359-1",
+          "1534923023892"
+        ],
+        "settings": {
+          "title": "Offers & Promotions",
+          "align_text": "center"
+        }
+      },
+      "1534923083653": {
+        "type": "hero",
+        "settings": {
+          "image": "",
+          "alignment": "center",
+          "title": "Silktox",
+          "text": "<p>Use overlay text to give your customers insight into your brand. Select imagery and text that relates to your style and story.</p>",
+          "hero_size": "medium",
+          "text_size": "medium",
+          "button_label": "Find a Spa",
+          "button_link": "shopify://pages/spa-locations"
+        }
+      },
+      "list-collections-template": {
+        "type": "list-collections-template",
+        "blocks": {
+          "1534932055047": {
+            "type": "collection",
+            "settings": {
+              "collection": "cleanse"
+            }
+          },
+          "1534932066146": {
+            "type": "collection",
+            "settings": {
+              "collection": "cosmetics"
+            }
+          },
+          "1534932076313": {
+            "type": "collection",
+            "settings": {
+              "collection": "hydrate"
+            }
+          },
+          "1534932086290": {
+            "type": "collection",
+            "settings": {
+              "collection": "moisturize"
+            }
+          },
+          "1534932094239": {
+            "type": "collection",
+            "settings": {
+              "collection": "protect"
+            }
+          },
+          "1534932099648": {
+            "type": "collection",
+            "settings": {
+              "collection": "rejuncate"
+            }
+          }
+        },
+        "block_order": [
+          "1534932055047",
+          "1534932066146",
+          "1534932076313",
+          "1534932086290",
+          "1534932094239",
+          "1534932099648"
+        ],
+        "settings": {
+          "banner_heading": "One of a kind",
+          "banner_desc": "lorem ipsum text",
+          "button_text": "Buy it Now",
+          "button_link": "shopify://products/daily-exfolipowder",
+          "header_bkgd_img": "shopify://shop_images/Chrysanthemum.jpg",
+          "bottom_collection_title": "The Spa Collection",
+          "bottom_collection_img": "shopify://shop_images/Chrysanthemum.jpg",
+          "bottom_collection_desc": "bottom collection desc",
+          "bottom_collection_product": "daily-exfolipowder",
+          "display_type": "selected",
+          "sort": "alphabetical",
+          "grid": 3
+        }
+      },
+      "product-template": {
+        "type": "product-template",
+        "settings": {
+          "image_size": "medium",
+          "show_quantity_selector": true,
+          "show_variant_labels": false,
+          "show_vendor": false,
+          "enable_zoom": false,
+          "enable_payment_button": false,
+          "show_share_buttons": false
+        }
+      },
+      "related-product-by-tag": {
+        "type": "related-product-by-tag",
+        "settings": {
+          "show_related_products": true,
+          "related_title": "You may also like...",
+          "related_grid_num": "1",
+          "related_grid_row": "3"
+        }
+      }
+    },
+    "content_for_index": [
+      "slideshow",
+      "1534918807639",
+      "1534918942619",
+      "1534923083653",
+      "1534922179359",
+      "1534922098174",
+      "1534921378329",
+      "1534921861589"
+    ]
+  },
+  "presets": {
+    "Default": {
+      "color_text": "#3d4246",
+      "color_body_text": "#69727b",
+      "color_sale_text": "#557B97",
+      "color_borders": "#e8e9eb",
+      "color_button": "#557B97",
+      "color_button_text": "#fff",
+      "color_small_button_text_border": "#3d4246",
+      "color_text_field": "#fff",
+      "color_text_field_text": "#000",
+      "color_image_overlay_text": "#fff",
+      "color_image_overlay": "#3d4246",
+      "image_overlay_opacity": 40,
+      "color_body_bg": "#fff",
+      "type_header_font": "work_sans_n6",
+      "type_header_base_size": 26,
+      "type_base_font": "work_sans_n4",
+      "type_base_size": 16,
+      "type_bold_product_titles": false,
+      "share_facebook": true,
+      "share_twitter": true,
+      "share_pinterest": true,
+      "sections": {
+        "header": {
+          "type": "header",
+          "settings": {}
+        },
+        "hero": {
+          "type": "hero",
+          "settings": {
+            "text_size": "large"
+          }
+        },
+        "slideshow": {
+          "type": "slideshow",
+          "blocks": {
+            "slideshow-0": {
+              "type": "image",
+              "settings": {}
+            },
+            "slideshow-1": {
+              "type": "image",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "slideshow-0",
+            "slideshow-1"
+          ],
+          "settings": {}
+        },
+        "featured-collections": {
+          "type": "collection",
+          "settings": {
+            "collection": "frontpage"
+          }
+        },
+        "feature-row": {
+          "type": "feature-row",
+          "settings": {}
+        },
+        "footer": {
+          "type": "footer",
+          "settings": {
+            "footer_linklist_two": ""
+          }
+        }
+      },
+      "content_for_index": [
+        "hero",
+        "featured-collections",
+        "feature-row",
+        "slideshow"
+      ]
+    },
+    "Light": {
+      "color_text": "#162950",
+      "color_body_text": "#6d6d6d",
+      "color_sale_text": "#DA2F0C",
+      "color_borders": "#e4e4e4",
+      "color_button": "#DA2F0C",
+      "color_button_text": "#ffffff",
+      "color_small_button_text_border": "#162950",
+      "color_text_field": "#ffffff",
+      "color_text_field_text": "#162950",
+      "color_image_overlay_text": "#ffffff",
+      "color_image_overlay": "#3d3d3d",
+      "image_overlay_opacity": 40,
+      "color_body_bg": "#f8f8f8",
+      "type_header_font": "muli_n6",
+      "type_header_base_size": 26,
+      "type_base_font": "muli_n4",
+      "type_base_size": 18,
+      "type_bold_product_titles": true,
+      "share_facebook": true,
+      "share_twitter": true,
+      "share_pinterest": true,
+      "social_twitter_link": "",
+      "social_facebook_link": "",
+      "social_pinterest_link": "",
+      "social_instagram_link": "",
+      "social_tumblr_link": "",
+      "social_snapchat_link": "",
+      "social_youtube_link": "",
+      "social_vimeo_link": "",
+      "favicon": "",
+      "checkout_header_image": "",
+      "checkout_logo_image": "",
+      "checkout_logo_position": "left",
+      "checkout_logo_size": "small",
+      "checkout_body_background_image": "",
+      "checkout_body_background_color": "#ffffff",
+      "checkout_input_background_color_mode": "white",
+      "checkout_sidebar_background_image": "",
+      "checkout_sidebar_background_color": "#e8f3f6",
+      "checkout_heading_font": "Roboto",
+      "checkout_body_font": "Source Sans Pro",
+      "checkout_accent_color": "#1990c6",
+      "checkout_button_color": "#23314e",
+      "checkout_error_color": "#ff6d6d",
+      "sections": {
+        "header": {
+          "type": "header",
+          "settings": {
+            "align_logo": "left",
+            "logo": "",
+            "logo_max_width": 135,
+            "main_linklist": "main-menu",
+            "message": true,
+            "color_bg": "#162950",
+            "color_text": "#ffffff"
+          }
+        },
+        "hero": {
+          "type": "hero",
+          "settings": {
+            "alignment": "center",
+            "hero_size": "x-large",
+            "text_size": "large"
+          }
+        },
+        "slideshow": {
+          "type": "slideshow",
+          "blocks": {
+            "slideshow-0": {
+              "type": "image",
+              "settings": {
+                "image": "",
+                "alignment": "center"
+              }
+            },
+            "1492095993817": {
+              "type": "image",
+              "settings": {
+                "image": "",
+                "alignment": "center"
+              }
+            }
+          },
+          "block_order": [
+            "slideshow-0",
+            "1492095993817"
+          ],
+          "settings": {
+            "autoplay": true,
+            "autoplay_speed": 6,
+            "slideshow_height": "medium",
+            "text_size": "medium"
+          }
+        },
+        "featured-collections": {
+          "type": "collection",
+          "settings": {
+            "grid": 3,
+            "rows": 1,
+            "show_vendor": true,
+            "show_view_all": true
+          }
+        },
+        "footer": {
+          "type": "footer",
+          "settings": {
+            "footer_linklist": "main-menu",
+            "footer_linklist_two": "footer",
+            "footer_newsletter_enable": true,
+            "show_payment_icons": true
+          }
+        },
+        "product-template": {
+          "type": "product-template",
+          "settings": {
+            "image_size": "medium",
+            "show_quantity_selector": false,
+            "show_variant_labels": true,
+            "show_vendor": false,
+            "enable_zoom": true,
+            "show_share_buttons": true
+          }
+        },
+        "collection-template": {
+          "type": "collection-template",
+          "settings": {
+            "layout": "grid",
+            "grid": 2,
+            "rows": 2,
+            "show_collection_image": true,
+            "show_vendor": false,
+            "sort_enable": true,
+            "tags_enable": true
+          }
+        },
+        "1492033809691": {
+          "type": "map",
+          "settings": {}
+        },
+        "1492033877875": {
+          "type": "quotes",
+          "blocks": {
+            "1492033877875-0": {
+              "type": "quote",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "1492033877875-0"
+          ],
+          "settings": {}
+        },
+        "1492033924902": {
+          "type": "custom-content",
+          "blocks": {
+            "1492033924902-0": {
+              "type": "text",
+              "settings": {
+                "width": "100%",
+                "alignment": "center",
+                "align_text": "center"
+              }
+            }
+          },
+          "block_order": [
+            "1492033924902-0"
+          ],
+          "settings": {
+            "title": ""
+          }
+        },
+        "1492096252560": {
+          "type": "collection-list",
+          "blocks": {
+            "1492096252560-0": {
+              "type": "featured_collection",
+              "settings": {}
+            },
+            "1492096252560-1": {
+              "type": "featured_collection",
+              "settings": {}
+            },
+            "1492096252560-2": {
+              "type": "featured_collection",
+              "settings": {}
+            }
+          },
+          "block_order": [
+            "1492096252560-0",
+            "1492096252560-1",
+            "1492096252560-2"
+          ],
+          "settings": {
+            "grid": 3
+          }
+        },
+        "blog-template": {
+          "type": "blog-template",
+          "settings": {
+            "layout": "grid",
+            "blog_show_author": true,
+            "blog_show_date": false
+          }
+        },
+        "article-template": {
+          "type": "article-template",
+          "settings": {
+            "blog_show_author": true,
+            "blog_show_date": true,
+            "show_share_buttons": true
+          }
+        },
+        "cart-template": {
+          "type": "cart-template",
+          "settings": {
+            "cart_notes_enable": false
+          }
+        }
+      },
+      "content_for_index": [
+        "hero",
+        "featured-collections",
+        "slideshow",
+        "1492033924902",
+        "1492096252560",
+        "1492033877875",
+        "1492033809691"
+      ]
+    }
+  }
+}

@@ -1,0 +1,93 @@
+{% section 'contact-banner' %}
+
+<section class="fl-fix bg-white ov-h contact-layout">
+    <div class="small-wrapper">
+        <div class="fl-fix">
+            <div class="d-tb tbl-f w100">
+                {% section 'contact-template' %}
+
+                {% comment %} Form Start {% endcomment %}
+                    <div class="d-tbc w50 va-t">
+                        <div class="contact-form">
+                              <div class="title-box fl-fix">
+                                  <h6>Spa and Retail Inquiries</h6>
+                              </div>
+                              {%- assign formId = 'ContactForm' -%}
+                              {% form 'contact', id: formId %}
+                                  {% include 'form-status', formId %}
+                                  <ul class="contact-fields">
+                                      <li>
+                                          <input maxlength="100" required class="contact-field" placeholder="{{ 'contact.form.name' | t }}" type="text" id="{{ formId }}-name" name="contact[name]" value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}">
+                                      </li>
+                                      <li>
+                                          <input maxlength="100" required class="contact-field" placeholder="{{ 'contact.form.last_name' | t }}" type="text" id="{{ formId }}-last_name" name="contact[last_name]" value="{% if form[last_name] %}{{ form[last_name] }}{% endif %}">
+                                      </li>
+                                      <li>
+                                          <input maxlength="100" placeholder="{{ 'contact.form.email' | t }}" required type="email" id="{{ formId }}-email"
+                                              name="contact[email]" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" aria-required="true"
+                                              {%- if form.errors contains 'email' -%}
+                                                  class="contact-field input--error" aria-invalid="true" aria-describedby="{{ formId }}-email-error"
+                                              {%- else -%}
+                                                  class="contact-field"
+                                              {%- endif -%}
+                                          >
+                                          <span id="{{ formId}}-email-error" class="input-error-message">{% include 'icon-error' %} {{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}.</span>
+                                      </li>
+                                      <li>
+                                          <input maxlength="100" class="contact-field" placeholder="{{ 'contact.form.title' | t }}" type="text" id="{{ formId }}-name" name="contact[title]" value="{% if form[title] %}{{ form[title] }}{% endif %}">
+                                      </li>
+                                      <li>
+                                          <input maxlength="100" class="contact-field" placeholder="{{ 'contact.form.company' | t }}" type="text" id="{{ formId }}-name" name="contact[company]" value="{% if form[company] %}{{ form[company] }}{% endif %}">
+                                      </li>
+                                      <li>
+                                          <input maxlength="100" required class="contact-field" placeholder="{{ 'contact.form.phone' | t }}" type="tel" id="{{ formId }}-phone" name="contact[phone]" pattern="[0-9\-]*" value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}">
+                                      </li>
+                                      <li>
+                                          <div class="select">
+                                              <select class="contact-field" name="contact[industry]">
+                                                  <option value="">{{ 'contact.form.select_industry' | t }}</option>
+                                                  <option value="option1">{{ 'contact.form.industry_option1' | t }}</option>
+                                                  <option value="option2">{{ 'contact.form.industry_option2' | t }}</option>
+                                              </select>
+                                          </div>
+                                      </li>
+                                      <li>
+                                          <input maxlength="100" class="contact-field" placeholder="{{ 'contact.form.city' | t }}" type="text" id="{{ formId }}-name" name="contact[city]" value="{% if form[city] %}{{ form[city] }}{% endif %}">
+                                      </li>
+                                      <li>
+                                          <textarea rows="10" class="contact-field" placeholder="{{ 'contact.form.message' | t }}" id="{{ formId }}-message" name="contact[body]">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+                                      </li>
+                                      <li>
+                                          <div class="g-recaptcha contact-field" id="myCaptcha" data-sitekey="6LdeUG0UAAAAALD1PZXcGO2gaQJ_qg8d3zAyavh2"></div>
+                                      </li>
+                                      <li>
+                                          <input type="submit" id="contactFormSubmit" class="submit btn" value="{{ 'contact.form.submit' | t }}" disabled>
+                                      </li>
+                                  </ul>
+                              {% endform %}
+                        </div>
+                    </div>
+                {% comment %} Form End {% endcomment %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+  jQuery('#ContactForm').validate();
+      var actCallback = function (response) {
+        $('#contactFormSubmit').prop("disabled", false);
+    };
+    var expCallback = function() {
+        $('#contactFormSubmit').prop("disabled", true);
+    };
+    
+    var onloadCallback = function () {
+        var widget = grecaptcha.render(document.getElementById("myCaptcha"), {
+            'sitekey' : "6LdeUG0UAAAAALD1PZXcGO2gaQJ_qg8d3zAyavh2", 
+            'theme': "light",
+            'callback' : actCallback,
+            'expired-callback': expCallback,
+        });
+    };
+</script>

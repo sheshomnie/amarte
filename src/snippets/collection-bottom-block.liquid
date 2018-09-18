@@ -1,0 +1,18 @@
+{% if section.settings.bottom_collection_title %}
+<h4>{{ section.settings.bottom_collection_title }}</h4>
+{% endif %}
+
+
+{% unless all_products[section.settings.bottom_collection_product].title == '' %}
+{{ all_products[section.settings.bottom_collection_product].title }}
+{% endunless %}
+
+{% if section.settings.bottom_collection_img %}
+<figure>
+  <img src="{{ section.settings.bottom_collection_img | img_url:'400x400' }}" />
+</figure>
+{% endif %}
+
+{% if section.settings.bottom_collection_desc %}
+<p>{{ section.settings.bottom_collection_desc }}</p>
+{% endif %}

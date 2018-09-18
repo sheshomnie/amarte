@@ -1,0 +1,87 @@
+<section class="fl-fix pos-r home-banner">
+    <div class="fl-fix promo-banner ingredient">
+        <figure class="bgsz-cv" style="background-image:url({{ section.settings.ingredient_image | img_url: 'master' }});"> 
+            <img src="{{ section.settings.ingredient_image | img_url: 'master' }}" alt="" class="bgsz-cv-img">
+            <figcaption class="caption pos-a">
+                <div class="small-wrapper">
+                    <div class="text-box ta-c">
+                        <h3 class="h2 title d-ib">{{ section.settings.ingredient_title }}</h3>
+                        <div class="short-info">
+                            {{ section.settings.ingredient_text }}
+                        </div>
+                        {% if section.settings.ingredient_button_link != blank and section.settings.ingredient_button_label != blank %}
+                            <div class="action-box">
+                                <a href="{{ section.settings.ingredient_button_link }}" class="btn btn-orange"><span>{{ section.settings.ingredient_button_label }}</span></a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </figcaption>
+        </figure>
+    </div>
+</section>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Ingredient Banner"
+    },
+    "class": "index-section",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "ingredient_image",
+        "label": {
+          "en": "Image"
+        }
+      },
+      {
+        "type": "text",
+        "id": "ingredient_title",
+        "label": {
+          "en": "Ingredient Heading"
+        },
+        "default": {
+          "en": "The ingredients are just the beginning."
+        }
+      },
+      {
+        "type": "richtext",
+        "id": "ingredient_text",
+        "label": {
+          "en": "Text"
+        },
+        "default": {
+          "en": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna. aliqua. Ut enim ad minim veniam.</p>"
+        }
+      },
+      {
+        "type": "text",
+        "id": "ingredient_button_label",
+        "label": {
+          "en": "Button label"
+        },
+        "default": {
+          "en": "Learn More"
+        }
+      },
+      {
+        "type": "url",
+        "id": "ingredient_button_link",
+        "label": {
+          "en": "Button link"
+        }
+      }
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "Ingredient Banner"
+        },
+        "category": {
+          "en": "Banner"
+        }
+      }
+    ]
+  }
+{% endschema %}

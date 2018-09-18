@@ -1,0 +1,50 @@
+<div class="d-tbc w50 va-t">
+		<div class="text-box">
+				<div class="address-box fl-fix">
+						<div class="address">
+								{{ section.settings.contact_address }}
+						</div>
+						<div class="address">
+								{{ section.settings.office_hours }}
+						</div>
+						<div class="address">
+								{{ section.settings.press_inquiries }}
+						</div>
+						<div class="address">
+								{{ section.settings.customer_services }}
+						</div>
+				</div>
+		</div>
+</div>
+
+{% schema %}
+  {
+    "name": "Contact",
+    "settings": [
+				{
+					"type":	"html",
+					"id": "contact_address",
+					"label": "Contact Address",
+					"default": "<p>Contact Address</p>"
+				},
+				{
+					"type":	"html",
+					"id": "office_hours",
+					"label": "Office Hours",
+					"default": "<p>Office Hours</p>"
+				},
+				{
+					"type":	"html",
+					"id": "press_inquiries",
+					"label": "Press Inquiries",
+					"default": "<p>Press Inquiries</p>"
+				},
+				{
+					"type":	"html",
+					"id": "customer_services",
+					"label": "Customer Services",
+					"default": "<p>Customer Services</p>"
+				}
+		]
+  }
+{% endschema %}

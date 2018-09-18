@@ -1,0 +1,91 @@
+<section class="fl-fix bg-white ov-h about-layout zigzag">
+    <div class="full-wrapper">
+        <ul class="fl-fix">
+            {% for block in section.blocks %}
+                <li class="d-tb tbl-f w100 item">
+                    <div class="img-box d-tbc w50 ov-h va-m pos-r">
+                        <figure class="bgsz-cv pos-a bgp-cc" style="background-image: url({{ block.settings.korean_philosophy_image | img_url: 'master' }});">
+                            <img src="{{ 'about-layout-placeholder.gif' | asset_url }}" alt="about-layout-placeholder" class="w100"> 
+                        </figure>
+                    </div>
+                    <div class="d-tbc w50 va-m pos-r">
+                        <div class="center-maker">
+                            <div class="wrapper">
+                                <div class="text-box">
+                                    {% if section.settings.korean_philosophy_heading != blank and forloop.first == true %}
+                                        <div class="title-box fl-fix">
+                                            <h3 class="h5">{{ section.settings.korean_philosophy_heading }}</h3>
+                                        </div>
+                                    {% endif %}
+                                    {% if block.settings.korean_philosophy_text != blank %}
+                                        <div class="info-box fl-fix">
+                                            {{ block.settings.korean_philosophy_text }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}            
+        </ul>
+    </div>
+</section>
+
+{% schema %} 
+  {
+    "name": {
+      "en": "Korean Philosophy"
+    },
+    "class": "about_korean_philosophy",
+    "settings": [
+      {
+        "type": "text",
+        "id": "korean_philosophy_heading",
+        "label": {
+          "en": "Heading"
+        },
+        "default": {
+          "en": "Korean Skincare Philosophy"
+        } 
+      }
+    ],
+    "blocks": [
+      {
+        "type": "text_block",
+        "name": {
+          "en": "Column"
+        },
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "korean_philosophy_image",
+            "label": {
+              "en": "Image"
+            }
+          },
+          {
+            "type": "text",
+            "id": "korean_philosophy_title",
+            "label": {
+              "en": "Heading"
+            },
+            "default": {
+              "en": "Add a title or tagline"
+            }
+          },
+          {
+            "type": "richtext",
+            "id": "korean_philosophy_text",
+            "label": {
+              "en": "Text"
+            },
+            "default": {
+              "en": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>"
+            }
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

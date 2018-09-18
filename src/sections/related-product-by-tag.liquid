@@ -1,0 +1,146 @@
+{% if section.settings.show_related_products == true %}
+
+    {% comment %}
+      Heading.
+      Leave blank if you don't need one.
+    {% endcomment %}
+
+    {% assign heading = section.settings.related_title %}
+
+    {% comment %}
+      Set either or both to true, if you want
+      to limit yourself to items with same vendor, and/or type.
+    {% endcomment %}
+
+    {% assign same_vendor = false %}
+    {% assign same_type = false %}
+
+    {% comment %}
+      Collections to ignore.
+      Never pick related items from those.
+    {% endcomment %}
+
+    {% assign exclusions = 'frontpage,all' | split: ',' %}
+
+    {% comment %}
+      Looking for a relevant collection.
+    {% endcomment %}
+
+    {% if product.metafields.c_f['Related Products'] %}
+        {% assign collection = collections[product.metafields.c_f['Related Products']] %}
+    {% endif %}
+
+    {% assign found_a_collection = false %}
+    {% if collection and collection.all_products_count > 1 %}
+        {% unless exclusions contains collection.handle %}
+            {% assign found_a_collection = true %}
+        {% endunless %}
+    {% endif %}
+    {% unless found_a_collection %}
+        {% for c in product.collections %}
+            {% unless exclusions contains c.handle or c.all_products_count < 1 %}
+                {% assign found_a_collection = true %}
+                {% assign collection = c %}
+                {% break %}
+            {% endunless %}
+        {% endfor %}
+    {% endunless %}
+
+    {% comment %}
+      If we have a relevant collection.
+    {% endcomment %}
+
+    {% if found_a_collection %}
+
+      {% assign current_product = product %}
+      {% capture related_items %}
+          {% for product in collections.all.products %}
+              {% unless product.handle == current_product.handle %}
+              {% unless same_vendor and current_product.vendor != product.vendor %}
+              {% unless same_type and current_product.type != product.type %}
+
+              {% for ptag in current_product.tags %}
+                  {% if product.tags contains ptag %} 
+                      <li class="item">
+                          <figure class="fl-fix bgsz-cv pos-r" style="background-image:url({{ product.featured_image | img_url: 'master' }});">
+                              <a href="{{ product.url }}" class="d-b pos-r">
+                                  <img src="{{ 'product-placeholder.gif' | asset_url }}" alt="product-placeholder" class="bgsz-cv-img">
+                              </a>
+                          </figure>
+                          <div class="info-box fl-fix">
+                              <div class="title-box">
+                                  <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                                  <h3 class="title product-name"> <a href="{{ product.url }}">{{ product.title }}</a></h3>
+                              </div>
+                              <div class="price-box">
+                                  <div class="seen-box">
+                                      <a class="link pos-r d-ib as-seen-in" href="javascript:void(0)">AS SEEN IN</a>
+                                  </div>
+                                  <div class="asseenin-logo" style="display:none;">
+                                      <ul>
+                                          {% for image in product.images %}
+                                              {% if image.alt != 'logo-asseenin' %}
+                                                  {% continue %}
+                                              {% endif %}
+                                              <li><img class="logo-row__image" src="{{ image | img_url: '200x200' }}" alt="{{ image.alt | escape }}"></li>
+                                          {% endfor %}
+                                      </ul>
+                                  </div>
+                                  <div class="price">
+                                      <span>{{ product.price | money }}</span>
+                                  </div>
+                              </div>
+                          </div>
+                      </li>
+                  {% endif %}
+              {% endfor %}
+              {% endunless %}
+              {% endunless %}
+              {% endunless %}
+          {% endfor %}
+      {% endcapture %}
+
+      {% assign related_items = related_items | trim %}
+
+      {% unless related_items == blank %}
+
+          <section class="fl-fix fluid-wrap bg-amber catalogue-seller you_may_like">
+              <div class="full-wrapper">
+                  <div class="zigzag-grid fl-fix pos-r odd">
+                      {% unless heading == blank %}
+                          <div class="title-box grid-title ta-c">
+                              <h2 class="h1 title tt-u">{{ heading }}</h2>
+                          </div>
+                      {% endunless %}
+                      <ul class="fl-fix grid">
+                          {{ related_items }}
+                      </ul>
+                  </div>
+              </div>
+          </section>
+
+      {% endunless %}
+        
+    {% endif %}
+
+{% endif %}
+
+{% schema %}
+{
+  "name": "Related products",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_related_products",
+      "label": "Show related products",
+      "default": false
+    },
+    {
+      "id": "related_title",
+      "type": "text",
+      "label": "Section title",
+      "default": "Other fine products"
+    }
+  ]
+}
+{% endschema %}

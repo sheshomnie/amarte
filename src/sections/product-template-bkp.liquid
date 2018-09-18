@@ -1,0 +1,476 @@
+<div class="product-template__container page-width"
+  id="ProductSection-{{ section.id }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="product"
+  data-enable-history-state="true"
+>
+  {% comment %}
+    Get first variant, or deep linked one
+  {% endcomment %}
+  {%- assign current_variant = product.selected_or_first_available_variant -%}
+  {%- assign product_image_zoom_size = '1024x1024' -%}
+  {%- assign product_image_scale = '2' -%}
+  {%- assign enable_zoom = section.settings.enable_zoom -%}
+  {%- assign compare_at_price = current_variant.compare_at_price -%}
+  {%- assign price = current_variant.price -%}
+
+  {% case section.settings.image_size %}
+    {% when 'small' %}
+      {%- assign product_image_width = 'medium-up--one-third' -%}
+      {%- assign product_description_width = 'medium-up--two-thirds' -%}
+      {%- assign product_thumbnail_width = 'medium-up--one-third' -%}
+      {%- assign height = 345 -%}
+    {% when 'medium' %}
+      {%- assign product_image_width = 'medium-up--one-half' -%}
+      {%- assign product_description_width = 'medium-up--one-half' -%}
+      {%- assign product_thumbnail_width = 'medium-up--one-quarter' -%}
+      {%- assign height = 530 -%}
+    {% when 'large' %}
+      {%- assign product_image_width = 'medium-up--two-thirds' -%}
+      {%- assign product_description_width = 'medium-up--one-third' -%}
+      {%- assign product_thumbnail_width = 'medium-up--one-fifth' -%}
+      {%- assign height = 720 -%}
+    {% when 'full' %}
+      {%- assign product_image_width = '' -%}
+      {%- assign product_description_width = '' -%}
+      {%- assign product_thumbnail_width = 'medium-up--one-eighth' -%}
+      {%- assign height = 1090 -%}
+      {%- assign enable_zoom = false -%}
+  {% endcase %}
+
+  <div class="grid product-single{% if section.settings.enable_payment_button %} product-single--{{ section.settings.image_size }}-image{% endif %}">
+    <div class="grid__item product-single__photos {{ product_image_width }}{% if section.settings.image_size == 'full' %} product-single__photos--full{% endif %}">
+      {%- assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image -%}
+      {% for image in product.images %}
+        {% if image.alt == 'logo-asseenin' %}
+            {% continue %}
+        {% endif %}
+        {% capture img_id %}FeaturedImage-{{ section.id }}-{{ image.id }}{% endcapture %}
+        {% capture img_class %}product-featured-img{% endcapture %}
+        {% capture zoom_img_id %}FeaturedImageZoom-{{ section.id }}-{{ image.id }}{% endcapture %}
+        {% capture img_wrapper_id %}{{ zoom_img_id }}-wrapper{% endcapture %}
+        {%- assign img_url = image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+
+        {% include 'image-style' with small_style: true, width: height, height: height, wrapper_id: img_wrapper_id, img_id: img_id %}
+
+        <div id="{{ img_wrapper_id }}" class="product-single__photo-wrapper js">
+          <div
+          id="{{ zoom_img_id }}"
+          style="padding-top:{{ 1 | divided_by: image.aspect_ratio | times: 100}}%;"
+          class="product-single__photo{% if enable_zoom %} js-zoom-enabled{% endif %}{% if product.images.size > 1 %} product-single__photo--has-thumbnails{% endif %}{% unless featured_image == image %} hide{% endunless %}"
+          data-image-id="{{ image.id }}"
+          {% if enable_zoom %} data-zoom="{{ image | img_url: product_image_zoom_size, scale: product_image_scale }}"{% endif %}>
+            <img id="{{ img_id }}"
+                 class="feature-row__image {{ img_class }} lazyload{% unless featured_image == image %} lazypreload{% endunless %}"
+                 src="{{ image | img_url: '300x300' }}"
+                 data-src="{{ img_url }}"
+                 data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                 data-aspectratio="{{ image.aspect_ratio }}"
+                 data-sizes="auto"
+                 tabindex="-1"
+                 alt="{{ image.alt | escape }}">
+          </div>
+        </div>
+      {% endfor %}
+
+      <noscript>
+        {% capture product_image_size %}{{ height }}x{% endcapture %}
+        <img src="{{ featured_image | img_url: product_image_size, scale: product_image_scale }}" alt="{{ featured_image.alt }}" id="FeaturedImage-{{ section.id }}" class="product-featured-img" style="max-width: {{ height }}px;">
+      </noscript>
+
+      {% if product.images.size > 1 %}
+        {% if product.images.size > 3 %}
+          {%- assign enable_thumbnail_slides = true -%}
+        {% endif %}
+
+        <div class="thumbnails-wrapper{% if enable_thumbnail_slides == true %} thumbnails-slider--active{% endif %}">
+          {% if enable_thumbnail_slides == true %}
+            <button type="button" class="btn btn--link medium-up--hide thumbnails-slider__btn thumbnails-slider__prev thumbnails-slider__prev--{{ section.id }}">
+              {% include 'icon-chevron-left' %}
+              <span class="icon__fallback-text">{{ 'sections.slideshow.previous_slide' | t }}</span>
+            </button>
+          {% endif %}
+          <ul class="grid grid--uniform product-single__thumbnails product-single__thumbnails-{{ section.id }}">
+            {% for image in product.images %}
+              {% if image.alt == 'logo-asseenin' %}
+                  {% continue %}
+              {% endif %}
+              <li class="grid__item {{ product_thumbnail_width }} product-single__thumbnails-item js">
+                <a href="{{ image.src | img_url: product_image_zoom_size, scale: product_image_scale }}"
+                   class="text-link product-single__thumbnail product-single__thumbnail--{{ section.id }}"
+                   data-thumbnail-id="{{ image.id }}"
+                   {% if enable_zoom %}data-zoom="{{ image.src | img_url: product_image_zoom_size, scale: product_image_scale }}"{% endif %}>
+                     <img class="product-single__thumbnail-image" src="{{ image.src | img_url: '110x110', scale: 2 }}" alt="{{ 'sections.featured_product.gallery_thumbnail_alt' | t: imageAlt: image.alt | escape }}">
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+          {% if enable_thumbnail_slides == true %}
+            <button type="button" class="btn btn--link medium-up--hide thumbnails-slider__btn thumbnails-slider__next thumbnails-slider__next--{{ section.id }}">
+              {% include 'icon-chevron-right' %}
+              <span class="icon__fallback-text">{{ 'sections.slideshow.next_slide' | t }}</span>
+            </button>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="grid__item {{ product_description_width }}">
+      <div class="product-single__meta">
+
+        <h1 class="product-single__title">{{ product.title }}</h1>
+        <div class="product-weight-info">
+          <span>{{ product.metafields.product.weight }}</span>
+          
+          <div class="as-seen-in up-show-icon">
+            <span>As Seen In</span>
+          </div>
+          <div class="asseenin-logo" style="display:none;">
+            <ul>
+              {% for image in product.images %}
+                {% if image.alt != 'logo-asseenin' %}
+                    {% continue %}
+                {% endif %}
+                <li><img class="logo-row__image" src="{{ image | img_url: '200x200' }}" alt="{{ image.alt | escape }}"></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        <div class="review-info">
+          <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+        </div>
+        <div class="product-single__description rte">
+          {{ product.description }}
+        </div>
+    
+          <div class="product__price">
+            {% include 'product-price', variant: current_variant %}
+          </div>
+
+          {% if section.settings.show_quantity_selector %}
+            <div id="error-quantity-{{ section.id }}" class="form-message form-message--error product__quantity-error hide" tabindex="-1">
+              {% include 'icon-error' %} {{ 'products.product.quantity_minimum_message' | t }}
+            </div>
+          {% endif %}
+
+          {% capture "form_classes" -%}
+            product-form product-form-{{ section.id }}{% unless section.settings.show_variant_labels %} product-form--hide-variant-labels{% endunless %}{% if section.settings.enable_payment_button and product.has_only_default_variant%} product-form--payment-button-no-variants{% endif %}
+          {%- endcapture %}
+        
+        {% capture "form_id" %}addToCartForm-{{section.id}}{% endcapture %}
+
+          {% form 'product', product, class:form_classes, novalidate: 'novalidate', id:form_id %}
+            {% unless product.has_only_default_variant %}
+              {% for option in product.options_with_values %}
+                <div class="selector-wrapper js product-form__item">
+                  <label {% if option.name == 'default' %}class="label--hidden" {% endif %}for="SingleOptionSelector-{{ forloop.index0 }}">
+                    {{ option.name }}
+                  </label>
+                  <select class="single-option-selector single-option-selector-{{ section.id }} product-form__input" id="SingleOptionSelector-{{ forloop.index0 }}" data-index="option{{ forloop.index }}">
+                    {% for value in option.values %}
+                      <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+              {% endfor %}
+            {% endunless %}
+
+            <select name="id" id="ProductSelect-{{ section.id }}" class="product-form__variants no-js">
+              {% for variant in product.variants %}
+              {% include 'bold-variant' with variant, hide_action: 'skip'  %}
+                {% if variant.available %}
+                  <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">
+                    {{ variant.title }}
+                  </option>
+                {% else %}
+                  <option disabled="disabled">{{ variant.title }} - {{ 'products.product.sold_out' | t }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+
+            {% if section.settings.show_quantity_selector %}
+              <div class="product-form__item product-form__item--quantity">
+                <label for="Quantity-{{ section.id }}">{{ 'products.product.quantity' | t }}</label>
+                <input type="number" id="Quantity-{{ section.id }}" name="quantity" value="1" min="1" class="product-form__input" pattern="[0-9]*">
+              </div>
+            {% endif %}
+            <div class="product-form__item product-form__item--submit{% if section.settings.enable_payment_button %} product-form__item--payment-button{% endif %}{% if product.has_only_default_variant %} product-form__item--no-variants{% endif %}">
+              <button type="submit" name="add" id="addToCart-{{ section.id }}" {% unless current_variant.available %}disabled="disabled"{% endunless %} class="btn product-form__cart-submit{% if section.settings.enable_payment_button %} btn--secondary-accent{% endif %}">
+                <span id="AddToCartText-{{ section.id }}">
+                  {% unless current_variant.available %}
+                    {{ 'products.product.sold_out' | t }}
+                  {% else %}
+                    {{ 'products.product.add_to_cart' | t }}
+                  {% endunless %}
+                </span>
+              </button>
+              {% if section.settings.enable_payment_button %}
+                {{ form | payment_button }}
+              {% endif %}
+            </div>
+          {% endform %}
+        </div>
+        
+        {%- comment -%}
+          Live region for announcing updated price and availability to screen readers
+        {%- endcomment -%}
+        <p class="visually-hidden" data-product-status
+          aria-live="polite"
+          role="status"
+        ></p>
+
+        
+
+        {% if section.settings.show_share_buttons %}
+          {% include 'social-sharing', share_title: product.title, share_permalink: product.url, share_image: product %}
+        {% endif %}
+    </div>
+  </div>
+</div>
+
+<section class="fl-fix pos-r press-layout-2">
+{%- assign blog = blogs['from-the-press'] -%}
+    <div class="full-wrapper">
+        <div class="heading-box pos-r type-2">
+            <h3 class="title h5">{{ blog.title | escape }}</h3>
+            <a href="{{ blog.url }}" class="btn" aria-label="{{ 'blogs.article.read_all' | t }}"><span>{{ 'blogs.article.read_all' | t }}</span></a>
+        </div>
+        <ul class="{% if blog.articles.size > 0 %}press-slider {% endif %}layout-2 col-3">
+            {% assign articles = blog.articles | sort: "published_at" %}
+            {% for article in articles %}
+                {% assign blogTags = article.tags | uniq %}
+                {% if blogTags contains product.handle %}
+                    <li class="pos-r col">
+                        <div class="item fl-fix d-f fxd-c">
+                            <div class="item-box fl-fix">
+                                <figure class="fl-fix bgsz-cv pos-r" style="background-image:url({{ article.image | img_url: 'master' }});">
+                                    <a href="{{ article.url }}" class="d-b pos-r">
+                                        <img src="{{ 'about-press-placeholder.gif' | asset_url }}" alt="about-press-placeholder" class="bgsz-cv-img">
+                                    </a>
+                                </figure>
+                                <div class="title-box fl-fix">
+                                    <div class="magazine"><a href="{{ article.url }}">{{ article.excerpt }}</a></div>
+                                    <h4 class="title"> <a href="{{ article.url }}">{{ article.title }}</a></h4>
+                                </div>
+                            </div>
+                            <div class="tag-box fl-fix">
+                                <div class="date"><span>{{ article.published_at | time_tag: format: 'month_day_year' }}</span></div>
+                                <div class="tags tt-u">{{ article.tags | join: ', ' }}</div>
+                            </div>
+                        </div>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+
+<div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+
+<section class="fl-fix pos-r faq-section" id="product-faq">
+    <div class="wrapper">
+        {{ product.metafields.faq.content }}
+        {% comment %} <div class="heading-box pos-r type-2">
+            <h4 class="title">FAQs</h4>
+        </div>
+        <ul class="fl-fix faqs">
+            <li class="pos-r fl-fix item active">
+                <h6 class="title">3.8% retinol seems to be a really high percentage. I’ve never seen or heard of a product with anywhere near this much retinol. Is it real?</h6>
+                <div class="short-info">
+                    <p>Eyeconic™ Eye Cream actually does contain 3.8% retinol and is the first product in North America to offer this retinol potency - all contained in a gentle, effective and ultra-elegant formulation that delivers incomparable results.</p>
+                </div>
+            </li>  
+            <li class="pos-r fl-fix item">
+                <h6 class="title">Aqua Lotion is so light - how well does it moisturize?</h6>
+                <div class="short-info">
+                    <p>Eyeconic™ Eye Cream actually does contain 3.8% retinol and is the first product in North America to offer this retinol potency - all contained in a gentle, effective and ultra-elegant formulation that delivers incomparable results.</p>
+                </div>
+            </li>                
+            <li class="pos-r fl-fix item">
+                <h6 class="title">Aqua Lotion is so light - how well does it moisturize?</h6>
+                <div class="short-info">
+                    <p>Eyeconic™ Eye Cream actually does contain 3.8% retinol and is the first product in North America to offer this retinol potency - all contained in a gentle, effective and ultra-elegant formulation that delivers incomparable results.</p>
+                </div>
+            </li>            
+        </ul> {% endcomment %}
+    </div>
+</section>
+
+{% unless product == empty %}
+  <script type="application/json" id="ProductJson-{{ section.id }}">
+    {{ product | json }}
+  </script>
+{% endunless %}
+
+{% schema %}
+  {
+    "name": {
+      "en": "Product pages",
+      "de": "Produktseiten",
+      "fr": "Pages de produits",
+      "it": "Pagine di prodotto",
+      "ja": "商品ページ",
+      "es": "Páginas de productos",
+      "pt-BR": "Páginas de produtos"
+    },
+    "settings": [
+      {
+        "type": "select",
+        "id": "image_size",
+        "label": {
+          "en": "Image size",
+          "de": "Foto-Größe",
+          "fr": "Taille des images",
+          "it": "Dimensione immagine",
+          "ja": "画像のサイズ",
+          "es": "Tamaño de la imagen",
+          "pt-BR": "Tamanho da imagem"
+        },
+        "options": [
+          {
+            "value": "small",
+            "label": {
+              "en": "Small",
+              "de": "Klein",
+              "fr": "Petite",
+              "it": "Piccolo",
+              "ja": "小",
+              "es": "Pequeña",
+              "pt-BR": "Pequeno"
+            }
+          },
+          {
+            "value": "medium",
+            "label": {
+              "en": "Medium",
+              "de": "Mittel",
+              "fr": "Moyenne",
+              "it": "Medio",
+              "ja": "中",
+              "es": "Mediana",
+              "pt-BR": "Médio"
+            }
+          },
+          {
+            "value": "large",
+            "label": {
+              "en": "Large",
+              "de": "Groß",
+              "fr": "Grande",
+              "it": "Grande",
+              "ja": "大",
+              "es": "Grande",
+              "pt-BR": "Grande"
+            }
+          },
+          {
+            "value": "full",
+            "label": {
+              "en": "Full-width",
+              "de": "Volle Breite",
+              "fr": "Pleine largeur",
+              "it": "Intera larghezza",
+              "ja": "全幅",
+              "es": "Ancho completo",
+              "pt-BR": "Largura completa"
+            }
+          }
+        ],
+        "default": "medium"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_quantity_selector",
+        "label": {
+          "en": "Show quantity selector",
+          "de": "Quantitäts-Auswahl anzeigen",
+          "fr": "Afficher le sélecteur de quantité",
+          "it": "Mostra selettore quantità",
+          "ja": "数量セレクターを表示する",
+          "es": "Mostrar selector de cantidad",
+          "pt-BR": "Exibir seletor de quantidade"
+        },
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_variant_labels",
+        "label": {
+          "en": "Show variant labels",
+          "de": "Varianten-Etiketten anzeigen",
+          "fr": "Afficher le nom des variantes",
+          "it": "Mostra etichette varianti",
+          "ja": "バリエーションのラベルを表示する",
+          "es": "Mostrar etiquetas de variantes",
+          "pt-BR": "Exibir etiquetas de variantes"
+        },
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_vendor",
+        "label": {
+          "en": "Show vendor",
+          "de": "Lieferanten anzeigen",
+          "fr": "Afficher les vendeurs",
+          "it": "Mostra fornitore",
+          "ja": "販売元を表示する",
+          "es": "Mostrar proveedor",
+          "pt-BR": "Exibir fornecedor"
+        },
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_zoom",
+        "label": {
+          "en": "Enable image zoom",
+          "de": "Foto-Zoom zulassen",
+          "fr": "Activer le zoom d'image",
+          "it": "Abilita lo zoom dell'immagine",
+          "ja": "画像ズームを有効にする",
+          "es": "Habilitar zoom de imagen",
+          "pt-BR": "Ativar o zoom da imagem"
+        },
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_payment_button",
+        "label": {
+          "en": "Show dynamic checkout button",
+          "de": "Dynamischen Checkout Button anzeigen",
+          "fr": "Afficher le bouton de passage à la caisse dynamique",
+          "it": "Mostra pulsante di check-out dinamico",
+          "ja": "動的チェックアウトボタンを表示する",
+          "es": "Mostrar botón de pago dinámico",
+          "pt-BR": "Exibir botão dinâmico de finalização da compra"
+        },
+        "info": {
+          "en": "Lets customers check out directly using a familiar payment method. [Learn more](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+          "de": "Lässt Kunden direkt bezahlen mit bekannten Bezahlmethoden. [Mehr erfahren](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+          "fr": "Permettez à vos clients de passer à la caisse avec un moyen de paiement qui leur est familier. [En savoir plus](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+          "it": "Fai in modo che i clienti effettuino il check-out direttamente utilizzando un metodo di pagamento a loro conosciuto. [Maggiori informazioni](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+          "ja": "使い慣れた決済方法を使用して、お客様に直接チェックアウトしてもらいましょう。[もっと詳しく](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+          "es": "Permite a los clientes pagar directamente usando un método de pago familiar. [Más información](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)",
+          "pt-BR": "Permite que os clientes finalizem os pedidos na hora usando uma forma de pagamento salva. [Saiba mais](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)"
+        },
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_share_buttons",
+        "label": {
+          "en": "Show social sharing buttons",
+          "de": "Buttons für Social Media anzeigen",
+          "fr": "Affichez les boutons de partage sur les médias sociaux",
+          "it": "Mostra i pulsanti per la condivisione sui social",
+          "ja": "ソーシャル共有ボタンを表示する",
+          "es": "Mostrar botones para compartir en redes sociales",
+          "pt-BR": "Exibir botões de compartilhamento em redes sociais"
+        },
+        "default": true
+      }
+    ]
+  }
+{% endschema %}

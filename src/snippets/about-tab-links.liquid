@@ -1,0 +1,9 @@
+{% if linklists[section.settings.about_linklist].links.size > 0 %}
+    <ul class="fl-fix">
+        {% for link in linklists[section.settings.about_linklist].links %}
+            <li>
+                <a class="btn transparent border btn-black" href="{{ link.url }}"><span>{{ link.title }}</span></a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

@@ -1,0 +1,7 @@
+development:
+ password: 8bbc1619d1fa850b806d0918acdab39c
+ theme_id: 34139963504
+ store: amarte-skin-care.myshopify.com
+ ignore_files:
+   #- settings_data.json # Uncomment this line to avoid resetting theme settings
+

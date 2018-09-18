@@ -1,0 +1,179 @@
+<section class="fl-fix pos-r home-banner">
+    <div class="fl-fix top-banner blog-detail-banner">
+        <figure class="bgsz-cv" style="background-image:url({{ blog.metafields.blog.catimage }});">
+            <img src="{{ blog.metafields.blog.catimage }}" alt="" class="bgsz-cv-img">
+            <figcaption class="caption pos-a">
+                <div class="wrapper">
+                    <div class="text-box ta-c">
+                        <h1 class="h2 title d-ib tt-u">
+                            {{ blog.title }}
+                        </h1>
+                    </div>
+                    <div class="back-btn">
+                        <a href="/pages/blog" class="btn border transparent"><span>{{ 'blogs.article.back_to_blogs' | t }}</span></a>
+                    </div>
+                </div>
+            </figcaption>
+        </figure>
+    </div>
+</section>
+
+{% paginate blog.articles by 9 %}
+<section class="fl-fix pos-r press-layout-2">
+    <div class="full-wrapper">
+        <ul class="layout-2 col-3">
+            {% for article in blog.articles %}
+                <li class="pos-r col">
+                    <div class="item fl-fix d-f fxd-c">
+                        <div class="item-box fl-fix">
+                            <figure class="fl-fix bgsz-cv pos-r" style="background-image:url({{ article.image | img_url: 'master' }});">
+                                <a href="{{ article.url }}" class="d-b pos-r">
+                                    <img src="{{ 'about-press-placeholder.gif' | asset_url }}" alt="about-press-placeholder" class="bgsz-cv-img">
+                                </a>
+                            </figure>
+                            <div class="title-box fl-fix">
+                                <div class="magazine"><a href="{{ article.url }}">{{ article.excerpt }}</a></div>
+                                <h4 class="title"> <a href="{{ article.url }}">{{ article.title }}</a></h4>
+                            </div>
+                        </div>
+                        <div class="tag-box fl-fix">
+                            <div class="date"><span>{{ article.published_at | time_tag: format: 'month_day_year' }}</span></div>
+                            <div class="tags tt-u">{{ article.tags | join: ', ' }}</div>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+{% if paginate.pages > 1 %}
+    <div class="custompage">
+        <div class="pagination-custom">
+            <input type="hidden" id="next_url" value="{{ paginate.next.url }}">
+            <div class="loading">
+              <a href="javascript:void(0);" class="">
+                <div class="loadersmall"></div>
+              </a>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% endpaginate %}
+
+{% schema %}
+  {
+    "name": {
+      "en": "Blog pages",
+      "de": "Blogseiten",
+      "fr": "Pages du blog",
+      "it": "Pagine del blog",
+      "ja": "ブログページ",
+      "es": "Páginas del blog",
+      "pt-BR": "Páginas do blog"
+    },
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "blog_show_author",
+        "label": {
+          "en": "Show author",
+          "de": "Autor anzeigen",
+          "fr": "Afficher l'auteur",
+          "it": "Mostra autore",
+          "ja": "執筆者を表示する",
+          "es": "Mostrar autor",
+          "pt-BR": "Exibir autor(a)"
+        },
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_date",
+        "label": {
+          "en": "Show date",
+          "de": "Datum anzeigen",
+          "fr": "Afficher la date",
+          "it": "Mostra data",
+          "ja": "日付を表示する",
+          "es": "Mostrar fecha",
+          "pt-BR": "Exibir data"
+        },
+        "default": true
+      }
+    ]
+  }
+{% endschema %}
+
+<script type="text/javascript">
+$(window).scroll(function () {
+    if($('.loadersmall').length > 0){
+      var ofTop = jQuery('.loadersmall').offset().top;
+      var winHeight = $(window).innerHeight();
+      var scrollDistance = $(window).scrollTop();
+      //console.log(ofTop);
+      //console.log(scrollDistance);
+      if (scrollDistance + winHeight + 50 > ofTop) {
+        if (!$('#blog_listing').hasClass('loading')) {
+          //trigger click on load_more automatically on scroll
+          $('.loading a')[0].click();
+        }
+      }
+    }
+  }); 
+
+    $('.custompage').on("click", '.loading a', function(){
+	function show_blog(){
+	  var $animation_elements = $('.animation-element');
+	  var $window = $(window);
+
+	  function check_if_in_view() {
+            var window_height = $window.height();
+            var window_top_position = $window.scrollTop();
+            var window_bottom_position = (window_top_position + window_height);
+
+            $.each($animation_elements, function () {
+              var $element = $(this);
+              var element_height = $element.outerHeight();
+              var element_top_position = $element.offset().top;
+              var element_bottom_position = (element_top_position + element_height);
+
+              //check to see if this current container is within viewport
+              if ((element_bottom_position >= window_top_position) &&
+                      (element_top_position <= window_bottom_position)) {
+                    $element.addClass('in-view');
+              } else {
+                    $element.removeClass('in-view');
+              }
+            }); 
+	  }
+	  $window.on('scroll resize', check_if_in_view);
+	  $window.trigger('scroll');
+	}
+	$('#blog_listing').addClass('loading');
+	var url1 = jQuery(this).parent().siblings("#next_url").val();
+
+        if( url1 != '' ) {
+            $.ajax({
+              url: url1,
+              success: function (value) {
+                    $('.custompage').empty();
+                    $('#blog_listing').removeClass('loading');
+
+                    var value1 = $(value).find('.animation-element');
+                    var value2 = $(value).find('.pagination-custom');
+                    if(value1){
+                      $('.blog-article-list ul').append(value1);
+                      show_blog();
+                    }
+                    if(value2){
+                      $('.custompage').append(value2);
+                    }
+                    if($.trim($(".pagination-custom").html())==''){            
+                      $('.pagination-custom').parent().hide();
+                    }
+              }
+            });
+        }
+    });
+</script>

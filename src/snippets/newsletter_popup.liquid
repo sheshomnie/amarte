@@ -1,0 +1,152 @@
+{% if settings.enable_newsletter_popup %}
+<div class=" newsletter-wrap newsletter_popup">
+    <div id="newsletter_popUp" class="p-5" data-popup-time="{{ settings.newsletter_popup_timingg }}" data-cookie-time="{{ settings.newsletter_popup_cookie_time }}">
+        {% if settings.newsletter_popup_heading != blank %}
+            <h4>{{ settings.newsletter_popup_heading }}</h4>
+        {% endif %}
+        {% form 'customer' %}
+            {{ form.errors | default_errors }}
+            {% if form.posted_successfully? %}
+                <span class="form-success">
+                    {% if settings.newsletter_popup_thankyou_msg != blank %}
+                        {{ settings.newsletter_popup_thankyou_msg }}
+                    {% else %}
+                        Thank you for subscribing.
+                    {% endif %}    
+                </span>
+                {% else %}  
+                    {% if settings.newsletter_popup_subheading != blank %}
+                        <div class="label-wrap">
+                            <label>{{ settings.newsletter_popup_subheading }}</label>
+                        </div>
+                    {% endif %}
+                    <input type="hidden" name="contact[tags]" value="newsletter">
+                    <ul>
+                      <li><input type="email"  name="contact[email]" class="form-control" value="{% if customer %}{{ customer.email }}{% endif %}" placeholder="{{ 'general.newsletter_form.email_placeholder' | t }}"></li>
+                      <li><button type="submit" class="cus-btn" name="commit">{{ 'general.newsletter_form.submit_btn' | t }}</button></li>
+                    </ul>
+            {% endif %}
+        {% endform %}
+        {% if settings.newsletter_close_text %}
+            <a class="close_popUp" href="javascript:void(0);">{{ settings.newsletter_close_text }}</a>
+        {% endif %}
+    </div>
+</div>
+
+<script type="text/javascript">
+  jQuery("document").ready(function () {
+    jQuery( ".newsletter_popup #contact_form" ).addClass( "form-inline" );
+    jQuery( ".newsletter_popup #contact_form" ).removeClass( "contact-form" );
+  });
+
+ $('.newsletter_popup .cus-btn').click( function(){
+    if($('.newsletter_popup input[type="email"]').val() !== ''){
+      var email = $('.newsletter_popup input[type="email"]').val();
+      if(isValidEmailAddress(email) != true) {
+        var email_field = $('.newsletter_popup input[type="email"]');
+        var email = email_field.val();
+        email_field.val("");
+        email_field.attr("placeholder", email+" is not a valid email address.");
+        email_field.addClass('error');       
+      }
+    } else {
+      var email_field = $('.newsletter_popup input[type="email"]');
+      var email = email_field.val();
+      email_field.val("");
+      email_field.attr("placeholder", "Please fill your email address.");
+      email_field.addClass('error');
+    }
+ });
+ 
+  function isValidEmailAddress(emailAddress) {
+    var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+    return pattern.test(emailAddress);
+  };
+  
+  
+  (function($){
+      $('#newsletter_popUp').hide();
+      var time = 0;
+      var cookie_timing = 0;
+      var popUpTime = parseInt($('#newsletter_popUp').attr('data-popup-time'));
+      var cookieTime = parseInt($('#newsletter_popUp').attr('data-cookie-time'));
+      if( popUpTime > 0 ) {
+          time = popUpTime;
+      }
+
+      if( cookieTime > 0 ) {
+          cookie_timing = cookieTime;
+      }
+    
+      if ($.cookie('popup_expire') != '1') {
+        setTimeout(function() {
+          $( ".newsletter_popup" ).addClass('open');
+          $.cookie('popup_expire', '1', { expires: cookie_timing }); 
+        }, time);
+      }
+
+      $('body').on('click', '.close_popUp', function() {
+          $( ".newsletter_popup" ).removeClass('open');
+      });
+    
+      $('.newsletter_popup form').submit( function(){
+        var thank_you_msg ="{{ settings.newsletter_popup_thankyou_msg }}";
+        var thisis = $(this);
+        $('p.error, p.success').remove();
+        if($(this).find('input[type="email"]').val() !== ''){
+          var data = $(this).serialize();
+          $.ajax({  
+            type: "POST",  
+            url: "/contact",  
+            data: data,  
+            success: function(response) {
+              //console.log(response);
+              $('.newsletter_popup form').empty();
+              var res_data = $(response).find('.newsletter_popup form').html();
+              console.log('res_data : ' + res_data );
+              $('.newsletter_popup form').append('<p class="success">'+thank_you_msg+'</p>');
+              //$('.newsletter_popup form').append(res_data);
+            },
+            error: function(response) {
+              var email_field = $('.newsletter_popup input[type="email"]');
+              var email = email_field.val();
+              email_field.val("");
+              email_field.attr("placeholder", "There is an error in submitting the form.");
+              email_field.addClass('error');
+            }    
+          }); 
+        }
+        return false;
+      });
+  })(jQuery);
+</script>
+<style>
+  .newsletter_popup p.errror {
+    color: #ff0000;
+    font-weight: 400;
+    font-size: 12px;
+    font-family: 'Lato', sans-serif;
+    margin-bottom: 30px;
+  }
+  .newsletter_popup p.success{
+    margin-bottom: 30px;
+  }
+
+  .newsletter_popup.open {
+      position: fixed;
+      text-align: center;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,.8);
+      z-index: 9999;
+  }
+
+  .newsletter_popup.open #newsletter_popUp {
+      display: block !important;
+      position: relative;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+  }
+</style>
+{% endif %}

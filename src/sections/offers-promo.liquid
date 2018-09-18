@@ -1,0 +1,101 @@
+<section class="fl-fix fluid-wrap bg-peach-2 offers-promo">
+    <div class="full-wrapper">
+        <div class="zigzag-grid fl-fix pos-r even">
+            <div class="title-box grid-title ta-c">
+                <h2 class="h1 title tt-u">{{ section.settings.offers_promo_title }}</h2>
+            </div>
+            <ul class="fl-fix grid">
+                {% for block in section.blocks %}
+                    <li class="item">
+                        <figure class="fl-fix bgsz-cv pos-r" style="background-image:url({{ block.settings.offers_promo_image | img_url: 'master' }});">
+                            <a href="#" class="d-b pos-r">
+                                <img src="{{ 'product-placeholder.gif' | asset_url }}" alt="product-placeholder" class="bgsz-cv-img">
+                            </a>
+                        </figure>
+                        <div class="text-box fl-fix ta-c">
+                            <div class="wrapper">
+                                {% if block.settings.offers_promo_title != blank %}
+                                    <h4 class="h4 title d-ib">{{ block.settings.offers_promo_title }}</h4>
+                                {% endif %}
+
+                                {% if block.settings.offers_promo_text != blank %}
+                                    <div class="short-info">
+                                        {{ block.settings.offers_promo_text }}
+                                    </div>
+                                {% endif %}
+                                <div class="action-box">
+                                    <a href="{{ block.settings.offers_promo_button_link }}" class="btn"><span>{{ block.settings.offers_promo_button_label }}</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            <div class="grid-title btn-box ta-c">
+                <a href="{{ section.settings.collection_link }}" class="btn btn-black border"><span>SEE OUR COLLECTIONS</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Offers & Promotions",
+    "class": "index-section",
+    "settings": [
+        {
+            "type": "text",
+            "id": "offers_promo_title",
+            "label": "Heading",
+            "default": "Text columns with images"
+        },
+        {
+        "type": "url",
+        "id": "collection_link",
+        "label": "Collection link"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "text_block",
+            "name": "Offer & Promotion",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "offers_promo_image",
+                    "label": "Image"
+                },
+                {
+                    "type": "text",
+                    "id": "offers_promo_title",
+                    "label": "Heading",
+                    "default": "The Night is Magic."
+                },
+                {
+                    "type": "richtext",
+                    "id": "offers_promo_text",
+                    "label": "Text",
+                    "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna. aliqua. Ut enim ad minim veniam.</p>"
+                },
+                {
+                    "type": "text",
+                    "id": "offers_promo_button_label",
+                    "label": "Button label",
+                    "default": "Discover"
+                },
+                {
+                    "type": "url",
+                    "id": "offers_promo_button_link",
+                    "label": "Button link"
+                }
+            ]
+        }
+    ],
+    "presets": [
+      {
+        "name": "Offers & Promotions",
+        "category": "Text With Image"
+      }
+    ]
+  }
+{% endschema %}

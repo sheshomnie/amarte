@@ -1,0 +1,88 @@
+{%- assign blog = blogs[section.settings.from_the_press_blog] -%}
+
+<section class="fl-fix pos-r press-section">
+    <div class="full-wrapper">
+        <div class="heading-box ta-c pos-r">
+            {% if section.settings.from_the_press_title != blank %}
+                <h3 class="title">{{ section.settings.from_the_press_title }}</h3>
+            {% endif %}
+            {% if section.settings.from_the_press_show_all %}
+                <a href="{{ blog.url }}" class="btn"><span>{{ 'blogs.article.view_all' | t }}</span></a>
+            {% endif %}
+        </div>
+        <ul class="press-slider col-3">
+            {% for article in blog.articles limit: section.settings.from_the_press_post_limit %}
+                <li class="pos-r col">
+                    <div class="item fl-fix d-f fxd-c">
+                        <div class="item-box fl-fix">
+                            <figure class="fl-fix bgsz-cv pos-r" style="background-image:url({{ article.image | img_url: 'master' }});">
+                                <a href="{{ article.url }}" class="d-b pos-r">
+                                    <img src="{{ 'press-placeholder.gif' | asset_url  }}" alt="press-placeholder" class="bgsz-cv-img">
+                                </a>
+                            </figure>
+                            <div class="title-box fl-fix">
+                                <div class="magazine"><a href="{{ article.url }}">{{ article.title }}</a></div>
+                                <h4 class="title"> <a href="{{ article.url }}">{{ article.content | strip_html | truncate: 150 }}</a></h4>
+                            </div>
+                        </div>
+                        <div class="tag-box fl-fix">
+                            {% if section.settings.from_the_press_blog_show_date %}
+                                <div class="date"><span> {{ article.published_at | time_tag: format: 'month_day_year' }} </span></div>
+                            {% endif %}
+                            {% if article.tags.size > 0 %}
+                                <div class="tags tt-u">{{ article.tags | join: ', ' }}</div>
+                            {% endif %}                            
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+
+{% schema %}
+  {
+    "name": "From The Press",
+    "class": "index-section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "from_the_press_title",
+        "label": "Heading",
+        "default": "From The Press"
+      },
+      {
+        "id": "from_the_press_blog",
+        "type": "blog",
+        "label": "Blog"
+      },
+      {
+        "type": "range",
+        "id": "from_the_press_post_limit",
+        "label": "No. of Posts",
+        "min": 3,
+        "max": 7,
+        "step": 1,
+        "default": 5
+      },
+      {
+        "type": "checkbox",
+        "id": "from_the_press_blog_show_date",
+        "label": "Show date",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "from_the_press_show_all",
+        "label": "Show 'View all' button",
+        "default": true
+      }
+    ],
+    "presets": [
+      {
+        "name": "From The Press",
+        "category": "Blog"
+      }
+    ]
+  }
+{% endschema %}

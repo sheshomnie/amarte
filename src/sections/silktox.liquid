@@ -1,0 +1,97 @@
+<section class="fl-fix pos-r home-banner">
+    <div class="fl-fix promo-banner silktox">
+        <figure class="bgsz-cv" style="background-image:url({{ section.settings.silktox_image | img_url: 'master' }});"> 
+            <img src="{{ section.settings.silktox_image | img_url: 'master' }}" alt="" class="bgsz-cv-img">
+            <figcaption class="caption pos-a">
+                <div class="small-wrapper">
+                    <div class="text-box ta-c">
+                        <h3 class="h2 title d-ib"><span>{{ section.settings.silktox_pre_title }}</span>{{ section.settings.silktox_title }}</h3>
+                        <div class="short-info">
+                            {{ section.settings.silktox_text }}
+                        </div>
+                        {% if section.settings.silktox_button_link != blank and section.settings.silktox_button_label != blank %}
+                            <div class="action-box">
+                                <a href="{{ section.settings.silktox_button_link }}" class="btn btn-orange"><span>{{ section.settings.silktox_button_label }}</span></a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </figcaption>
+        </figure>
+    </div>
+</section>
+
+{% schema %}
+  {
+    "name": {
+      "en": "SilkTox Banner"
+    },
+    "class": "index-section",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "silktox_image",
+        "label": {
+          "en": "Image"
+        }
+      },
+      {
+        "type": "text",
+        "id": "silktox_pre_title",
+        "label": {
+          "en": "Silktox Pre Heading"
+        },
+        "default": {
+          "en": "Introducing"
+        }
+      },
+      {
+        "type": "text",
+        "id": "silktox_title",
+        "label": {
+          "en": "Silktox Heading"
+        },
+        "default": {
+          "en": "SILKTOX™"
+        }
+      },
+      {
+        "type": "richtext",
+        "id": "silktox_text",
+        "label": {
+          "en": "Text"
+        },
+        "default": {
+          "en": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna. aliqua. Ut enim ad minim veniam.</p>"
+        }
+      },
+      {
+        "type": "text",
+        "id": "silktox_button_label",
+        "label": {
+          "en": "Button label"
+        },
+        "default": {
+          "en": "FIND A SPA"
+        }
+      },
+      {
+        "type": "url",
+        "id": "silktox_button_link",
+        "label": {
+          "en": "Button link"
+        }
+      }
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "SilkTox Banner"
+        },
+        "category": {
+          "en": "Banner"
+        }
+      }
+    ]
+  }
+{% endschema %}

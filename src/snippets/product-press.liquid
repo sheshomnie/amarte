@@ -1,0 +1,46 @@
+{%- assign blog = blogs['from-the-press'] -%}
+{% assign showPress = false %}
+{% for article in articles %}
+    {% assign blogTags = article.tags | uniq %}
+    {% if blogTags contains product.handle %}
+        {% assign showPress = true %}
+    {% endif %}
+{% endfor %}
+
+{% if showPress %}
+    <section class="fl-fix pos-r press-section">
+        <div class="wrapper">
+            <div class="heading-box pos-r">
+                <h3 class="title h5">{{ blog.title | escape }}</h3>
+                <a href="{{ blog.url }}" class="btn" aria-label="{{ 'blogs.article.read_all' | t }}"><span>{{ 'blogs.article.read_all' | t }}</span></a>
+            </div>
+            <ul class="{% if blog.articles.size > 0 %}press-slider {% endif %}col-3">
+                {% assign articles = blog.articles | sort: "published_at" %}
+                {% for article in articles %}
+                    {% assign blogTags = article.tags | uniq %}
+                    {% if blogTags contains product.handle %}
+                        <li class="pos-r col">
+                            <div class="item fl-fix d-f fxd-c">
+                                <div class="item-box fl-fix">
+                                    <figure class="fl-fix bgsz-cv pos-r" style="background-image:url({{ article.image | img_url: 'master' }});">
+                                        <a href="{{ article.url }}" class="d-b pos-r">
+                                            <img src="{{ 'about-press-placeholder.gif' | asset_url }}" alt="about-press-placeholder" class="bgsz-cv-img">
+                                        </a>
+                                    </figure>
+                                    <div class="title-box fl-fix">
+                                        <div class="magazine"><a href="{{ article.url }}">{{ article.excerpt }}</a></div>
+                                        <h4 class="title"> <a href="{{ article.url }}">{{ article.title }}</a></h4>
+                                    </div>
+                                </div>
+                                <div class="tag-box fl-fix">
+                                    <div class="date"><span>{{ article.published_at | time_tag: format: 'month_day_year' }}</span></div>
+                                    <div class="tags tt-u">{{ article.tags | join: ', ' }}</div>
+                                </div>
+                            </div>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+{% endif %}

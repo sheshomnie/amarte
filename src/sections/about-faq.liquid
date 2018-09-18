@@ -1,0 +1,81 @@
+
+<section class="fl-fix pos-r faq-section" id="about-faq">
+    <div class="wrapper">
+        {% if section.settings.about_faqs != blank %}
+            <div class="heading-box pos-r type-2">
+                <h4 class="title">{{ section.settings.about_faqs | escape }}</h4>
+            </div>
+        {% endif %}
+        <ul class="fl-fix faqs">
+            {% for block in section.blocks %}
+                {% if forloop.index <= section.settings.faqs_limit %}
+                    <li class="pos-r fl-fix item {% if forloop.first == true %}active{% endif %}">
+                        <h6 class="title">{{ block.settings.faq_title }}</h6>
+                        <div class="short-info">
+                            {{ block.settings.faq_details }}
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="pos-r fl-fix item" style="display:none;">
+                        <h6 class="title">{{ block.settings.faq_title }}</h6>
+                        <div class="short-info">
+                            {{ block.settings.faq_details }}
+                        </div>
+                    </li>
+                {% endif %}                        
+            {% endfor %}
+        </ul>
+        <div class="faq-btn fl-fix">
+            <a href="javascript:void(0)" class="btn" aria-label="{{ section.settings.about_faqs_viewall_btn }}"><span>{{ section.settings.about_faqs_viewall_btn }}</span></a>
+        </div>
+    </div>
+</section>
+{% schema %}
+    {
+        "name": "About FAQs",
+        "class": "about-faqs",
+        "settings": [
+            {
+                "type": "text",
+                "id": "about_faqs",
+                "label": "Heading",
+                "default": "About FAQs" 
+            },
+            {
+                "type": "range",
+                "id": "faqs_limit",
+                "label": "FAQs Limit",
+                "min": 3,
+                "max": 100,
+                "step": 1,
+                "default": 5
+            },
+            {
+                "type": "text",
+                "id": "about_faqs_viewall_btn",
+                "label": "Button Label",
+                "default": "View All" 
+            }     
+        ],
+        "blocks": [
+            {
+                "type": "text_block",
+                "name": "FAQ",
+                "settings": [
+                    {
+                        "type": "text",
+                        "id": "faq_title",
+                        "label": "FAQ Heading",
+                        "default": "FAQ Heading"
+                    },
+                    {
+                        "type": "richtext",
+                        "id": "faq_details",
+                        "label": "FAQ Details",
+                        "default": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>"
+                    }
+                ]
+            }
+        ]
+    }
+{% endschema %}

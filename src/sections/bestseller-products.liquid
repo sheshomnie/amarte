@@ -1,0 +1,132 @@
+<section class="fl-fix fluid-wrap bg-peach-1 best-seller">
+    <div class="full-wrapper">
+        <div class="zigzag-grid fl-fix pos-r odd">
+            {% if section.settings.bestsellers_title != blank %}
+                <div class="title-box grid-title ta-c">
+                    <h2 class="h1 title tt-u">{{section.settings.bestsellers_title}}</h2>
+                </div>
+            {% endif %}
+            {%- assign collection = collections[section.settings.bestsellers_collection] -%}
+            <ul class="fl-fix grid">
+                {% for product in collection.products limit: section.settings.product_limit %}
+                    <li class="item">
+                        <figure class="fl-fix bgsz-cv pos-r" style="background-image:url({{ product.featured_image | img_url: 'master' }});">
+                            <a href="#" class="d-b pos-r">
+                                <img src="{{ 'product-placeholder.gif' | asset_url }}" alt="product-placeholder" class="bgsz-cv-img">
+                            </a>
+                        </figure>
+                        <div class="info-box fl-fix">
+                            <div class="title-box">
+                                <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+                                <h3 class="title product-name"> <a href="{{ product.url }}">{{ product.title }}</a></h3>
+                            </div>
+                            <div class="price-box">
+                                <div class="seen-box">
+                                    <a class="link pos-r d-ib as-seen-in" href="javascript:void(0)">
+                                        <span>AS SEEN IN</span>
+                                    </a>
+                                </div>
+                                <div class="asseenin-logo" style="display:none;">
+                                    <ul>
+                                        {% for image in product.images %}
+                                            {% if image.alt != 'logo-asseenin' %}
+                                                {% continue %}
+                                            {% endif %}
+                                            <li><img class="logo-row__image" src="{{ image | img_url: '200x200' }}" alt="{{ image.alt | escape }}"></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="price">
+                                    <span>{{ product.price | money }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            {% if section.settings.show_view_all %}
+                <div class="grid-title btn-box ta-c">
+                    <a href="/products" class="btn"><span>{{ 'collections.general.view_all' | t }}</span></a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% schema %}
+  {
+    "name": "Bestsellers collection",
+    "class": "index-section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "bestsellers_title",
+        "label": {
+          "en": "Heading",
+          "de": "Titel",
+          "fr": "En-tête",
+          "it": "Heading",
+          "ja": "見出し",
+          "es": "Título",
+          "pt-BR": "Título"
+        },
+        "default": {
+          "en": "Bestsellers collection"
+        }
+      },
+      {
+        "id": "bestsellers_collection",
+        "type": "collection",
+        "label": {
+          "en": "Collection",
+          "de": "Kategorie",
+          "fr": "Collection",
+          "it": "Collezione",
+          "ja": "コレクション",
+          "es": "Colección",
+          "pt-BR": "Coleção"
+        }
+      },
+      {
+        "type": "range",
+        "id": "product_limit",
+        "label": {
+          "en": "Limit"
+        },
+        "min": 3,
+        "max": 7,
+        "step": 1,
+        "default": 3
+      },
+      {
+        "type": "checkbox",
+        "id": "show_view_all",
+        "label": {
+          "en": "Show 'View all' button",
+          "de": "'Alle anzeigen' Button anzeigen",
+          "fr": "Afficher le bouton “Tout voir”",
+          "it": "Mostra il pulsante \"Visualizza tutto\"",
+          "ja": "「すべて表示」ボタンを表示する",
+          "es": "Mostrar el botón 'Ver todo'",
+          "pt-BR": "Exibir botão 'Visualizar tudo'"
+        },
+        "default": false
+      }
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "Bestsellers collection"
+        },
+        "category": {
+          "en": "Collection",
+          "de": "Kategorie",
+          "fr": "Collection",
+          "it": "Collezione",
+          "ja": "コレクション",
+          "es": "Colección",
+          "pt-BR": "Coleção"
+        }
+      }
+    ]
+  }
+{% endschema %}

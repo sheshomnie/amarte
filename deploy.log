@@ -1,0 +1,74 @@
+Deploy complete @ Tue Sep 18 2018 17:09:40 GMT+0530 (IST). added/changed 1 file(s): snippets/bold-common.liquid.
+Deploy complete @ Tue Sep 18 2018 17:09:56 GMT+0530 (IST). added/changed 1 file(s): snippets/bold-common.liquid.
+Deploy complete @ Tue Sep 18 2018 17:10:12 GMT+0530 (IST). added/changed 1 file(s): snippets/bold-product.liquid.
+Deploy complete @ Tue Sep 18 2018 17:10:20 GMT+0530 (IST). added/changed 1 file(s): snippets/bold-product.liquid.
+Deploy complete @ Tue Sep 18 2018 17:10:31 GMT+0530 (IST). added/changed 1 file(s): snippets/bold-variant.liquid.
+Deploy complete @ Tue Sep 18 2018 17:10:40 GMT+0530 (IST). added/changed 1 file(s): snippets/bold-variant.liquid.
+Deploy complete @ Tue Sep 18 2018 17:10:51 GMT+0530 (IST). added/changed 1 file(s): snippets/bold-cart.liquid.
+Deploy complete @ Tue Sep 18 2018 17:11:09 GMT+0530 (IST). added/changed 1 file(s): snippets/bold-cart.liquid.
+Deploy complete @ Tue Sep 18 2018 17:11:12 GMT+0530 (IST). added/changed 1 file(s): snippets/bold-cart-item.liquid.
+Deploy complete @ Tue Sep 18 2018 17:11:18 GMT+0530 (IST). added/changed 1 file(s): snippets/bold-cart-item.liquid.
+Deploy complete @ Tue Sep 18 2018 17:11:27 GMT+0530 (IST). added/changed 1 file(s): snippets/bold-csp-metafield-variant.liquid.
+Deploy complete @ Tue Sep 18 2018 17:11:33 GMT+0530 (IST). added/changed 1 file(s): snippets/bold-csp-metafield-variant.liquid.
+Deploy complete @ Tue Sep 18 2018 17:13:04 GMT+0530 (IST). added/changed 1 file(s): layout/theme.liquid.
+Deploy complete @ Tue Sep 18 2018 17:14:15 GMT+0530 (IST). added/changed 1 file(s): layout/theme.liquid.
+Deploy complete @ Tue Sep 18 2018 17:14:16 GMT+0530 (IST). added/changed 1 file(s): layout/theme.liquid.
+Deploy complete @ Tue Sep 18 2018 17:16:20 GMT+0530 (IST). added/changed 1 file(s): sections/collection-template.liquid.
+Deploy complete @ Tue Sep 18 2018 17:19:22 GMT+0530 (IST). added/changed 1 file(s): templates/search.liquid.
+Deploy complete @ Tue Sep 18 2018 17:26:10 GMT+0530 (IST). added/changed 1 file(s): sections/product-template.liquid.
+Deploy complete @ Tue Sep 18 2018 17:26:13 GMT+0530 (IST). added/changed 1 file(s): sections/product-template.liquid.
+Deploy error @ Tue Sep 18 2018 17:27:24 GMT+0530 (IST). added/changed 1 file(s): sections/list-collections-template.liquid.
+17:27:24 [development]Asset Perform Update to sections/list-collections-template.liquid at host amarte-skin-care.myshopify.com
+	Status: 422 Unprocessable Entity
+	Errors: Liquid syntax error (line 90): Unknown tag 'endfor'
+ 
+Deploy error @ Tue Sep 18 2018 17:27:46 GMT+0530 (IST). added/changed 1 file(s): sections/list-collections-template.liquid.
+17:27:46 [development]Asset Perform Update to sections/list-collections-template.liquid at host amarte-skin-care.myshopify.com
+	Status: 422 Unprocessable Entity
+	Errors: Liquid syntax error (line 90): Unknown tag 'endfor'
+ 
+Deploy error @ Tue Sep 18 2018 17:27:48 GMT+0530 (IST). added/changed 1 file(s): sections/list-collections-template.liquid.
+17:27:48 [development]Asset Perform Update to sections/list-collections-template.liquid at host amarte-skin-care.myshopify.com
+	Status: 422 Unprocessable Entity
+	Errors: Liquid syntax error (line 90): Unknown tag 'endfor'
+ 
+Deploy complete @ Tue Sep 18 2018 17:28:44 GMT+0530 (IST). added/changed 1 file(s): sections/list-collections-template.liquid.
+Deploy complete @ Tue Sep 18 2018 17:28:47 GMT+0530 (IST). added/changed 1 file(s): sections/list-collections-template.liquid.
+Deploy complete @ Tue Sep 18 2018 17:40:21 GMT+0530 (IST). added/changed 1 file(s): sections/list-collections-template.liquid.
+Deploy complete @ Tue Sep 18 2018 18:35:00 GMT+0530 (IST). added/changed 1 file(s): assets/amarte-style.css.
+Deploy complete @ Tue Sep 18 2018 18:37:24 GMT+0530 (IST). added/changed 1 file(s): sections/product-template-bkp.liquid.
+Deploy complete @ Tue Sep 18 2018 18:38:08 GMT+0530 (IST). added/changed 1 file(s): sections/product-template-bkp.liquid.
+Deploy complete @ Tue Sep 18 2018 18:54:33 GMT+0530 (IST). added/changed 1 file(s): snippets/product-press.liquid.
+Deploy complete @ Tue Sep 18 2018 18:54:36 GMT+0530 (IST). added/changed 1 file(s): snippets/product-press.liquid.
+Deploy complete @ Tue Sep 18 2018 18:54:53 GMT+0530 (IST). added/changed 1 file(s): sections/product-template.liquid.
+Deploy complete @ Tue Sep 18 2018 18:56:25 GMT+0530 (IST). added/changed 1 file(s): sections/product-template.liquid.
+Deploy complete @ Tue Sep 18 2018 18:59:24 GMT+0530 (IST). added/changed 1 file(s): snippets/product-ingredients.liquid.
+Deploy complete @ Tue Sep 18 2018 18:59:27 GMT+0530 (IST). added/changed 2 file(s): snippets/product-ingredients.liquid, sections/product-template.liquid.
+Deploy complete @ Tue Sep 18 2018 19:02:20 GMT+0530 (IST). added/changed 1 file(s): sections/product-template.liquid.
+Deploy complete @ Tue Sep 18 2018 19:02:23 GMT+0530 (IST). added/changed 1 file(s): sections/product-template.liquid.
+Deploy complete @ Tue Sep 18 2018 19:03:57 GMT+0530 (IST). added/changed 1 file(s): snippets/product-press.liquid.
+Deploy complete @ Tue Sep 18 2018 19:03:59 GMT+0530 (IST). added/changed 1 file(s): snippets/product-press.liquid.
+Deploy complete @ Tue Sep 18 2018 19:06:26 GMT+0530 (IST). added/changed 1 file(s): sections/product-template.liquid.
+Deploy complete @ Tue Sep 18 2018 19:07:17 GMT+0530 (IST). added/changed 1 file(s): snippets/product-press.liquid.
+Deploy complete @ Tue Sep 18 2018 19:07:31 GMT+0530 (IST). added/changed 1 file(s): snippets/product-press.liquid.
+Deploy complete @ Tue Sep 18 2018 19:07:43 GMT+0530 (IST). added/changed 1 file(s): snippets/product-press.liquid.
+Deploy complete @ Tue Sep 18 2018 19:08:11 GMT+0530 (IST). added/changed 1 file(s): snippets/product-press.liquid.
+Deploy complete @ Tue Sep 18 2018 19:09:39 GMT+0530 (IST). added/changed 2 file(s): sections/related-product-by-tag.liquid, sections/related-product-by-tag.liquid.
+Deploy complete @ Tue Sep 18 2018 19:09:41 GMT+0530 (IST). added/changed 1 file(s): sections/related-product-by-tag.liquid.
+Deploy complete @ Tue Sep 18 2018 19:10:00 GMT+0530 (IST). added/changed 1 file(s): sections/related-product-by-tag.liquid.
+Deploy complete @ Tue Sep 18 2018 19:13:14 GMT+0530 (IST). added/changed 1 file(s): assets/amarte-style.css.
+Deploy complete @ Tue Sep 18 2018 19:17:01 GMT+0530 (IST). added/changed 1 file(s): sections/product-template.liquid.
+Deploy complete @ Tue Sep 18 2018 19:17:04 GMT+0530 (IST). added/changed 1 file(s): sections/product-template.liquid.
+Deploy complete @ Tue Sep 18 2018 19:20:16 GMT+0530 (IST). added/changed 1 file(s): sections/product-template.liquid.
+Deploy complete @ Tue Sep 18 2018 19:20:31 GMT+0530 (IST). added/changed 1 file(s): sections/product-template.liquid.
+Deploy complete @ Tue Sep 18 2018 19:26:38 GMT+0530 (IST). added/changed 1 file(s): sections/product-template.liquid.
+Deploy complete @ Tue Sep 18 2018 19:29:48 GMT+0530 (IST). added/changed 1 file(s): sections/product-template.liquid.
+Deploy complete @ Tue Sep 18 2018 19:29:51 GMT+0530 (IST). added/changed 1 file(s): sections/product-template.liquid.
+Deploy complete @ Tue Sep 18 2018 19:33:52 GMT+0530 (IST). added/changed 1 file(s): sections/product-template.liquid.
+Deploy complete @ Tue Sep 18 2018 19:35:35 GMT+0530 (IST). added/changed 1 file(s): assets/cat-detail-placeholder.png.
+Deploy complete @ Tue Sep 18 2018 19:36:29 GMT+0530 (IST). added/changed 1 file(s): assets/zoom_in-icon.png.
+Deploy complete @ Tue Sep 18 2018 19:41:15 GMT+0530 (IST). added/changed 1 file(s): sections/product-template.liquid.
+Deploy complete @ Tue Sep 18 2018 19:45:32 GMT+0530 (IST). added/changed 1 file(s): assets/index.min.js.
+Deploy complete @ Tue Sep 18 2018 19:45:34 GMT+0530 (IST). added/changed 1 file(s): assets/index.min.js.
+Deploy complete @ Tue Sep 18 2018 19:49:07 GMT+0530 (IST). added/changed 1 file(s): sections/product-template.liquid.
+Deploy complete @ Tue Sep 18 2018 19:51:12 GMT+0530 (IST). added/changed 1 file(s): sections/product-template.liquid.

@@ -1,0 +1,34 @@
+<section class="fl-fix fluid-wrap pos-r insta-section">
+    <div class="full-wrapper">
+        {% if section.settings.insta_code != blank %}
+            {{ section.settings.insta_code }}
+        {% endif %}
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "Custom Html",
+    "class": "index-section",
+    "settings": [
+        {
+            "type": "text",
+            "id": "insta_title",
+            "label": "Heading",
+            "default": "Insta Html Code"
+        },
+        {
+            "type": "html",
+            "id": "insta_code",
+            "label": "HTML"
+        }
+    ],
+    "presets": [
+      {
+        "name": "Custom Html",
+        "category": "Advanced layout"
+      }
+    ]
+  }
+{% endschema %}
+

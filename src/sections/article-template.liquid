@@ -1,0 +1,120 @@
+<section class="fl-fix pos-r home-banner">
+    <div class="fl-fix top-banner blog-detail-banner">
+        <figure class="bgsz-cv" style="background-image:url({{ section.settings.blod_details_banner | img_url:'master' }});">
+            <img src="{{ section.settings.blod_details_banner | img_url:'master' }}" alt="" class="bgsz-cv-img">
+            <figcaption class="caption pos-a">
+                <div class="wrapper">
+                    <div class="text-box ta-c">
+                        <h1 class="h2 title d-ib tt-u">
+                            {{ article.excerpt }}
+                        </h1>
+                        <div class="short-info c-white">
+                            <p>{{ article.published_at | time_tag: '%d.%m.%Y' }}</p>
+                        </div>
+                    </div>
+                    <div class="back-btn">
+                        <a href="/pages/blog" class="btn border transparent"><span>{{ 'blogs.article.back_to_blogs' | t }}</span></a>
+                    </div>
+                </div>
+            </figcaption>
+        </figure>
+    </div>
+</section>
+
+<section class="fl-fix bg-white ov-h feature-layout blog-section">
+    <div class="full-wrapper">
+        <div class="fl-fix">
+            <div class="title-box fl-fix">
+                <h3 class="h5 title">{{ article.title }}</h3>
+            </div>
+            <div class="d-tb tbl-f w100 item">
+                {{ article.content }}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="fl-fix share-vogue">
+    <div class="small-wrapper">
+        <div class="d-b w100 social">
+            <h4 class="title">share</h4>
+            <ul class="icons clear-fix">
+                <li class="fb">
+                    <a href="//www.facebook.com/sharer.php?u={{ shop.url | append: article.url }}"><span>Facebook</span></a>
+                </li>
+                <li class="tw">
+                    <a href="//twitter.com/share?text={{ article.title | url_param_escape }}&amp;url={{ shop.url | append: article.url }}"><span>Twitter</span></a>
+                </li>
+                <li class="pi">
+                    <a href="//pinterest.com/pin/create/button/?url={{ shop.url | append: article.url }}&amp;media={{ article.image | img_url: '1024x1024' }}&amp;description={{ article.title | url_param_escape }}"><span>P Interest</span></a>
+                </li>
+            </ul>
+            <div class="fl-fix">
+                <strong class="d-b vogue-text">{{ article.image.alt }}</strong>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Posts",
+      "de": "Posts",
+      "fr": "Articles",
+      "it": "Articoli",
+      "ja": "投稿",
+      "es": "Publicaciones",
+      "pt-BR": "Posts"
+    },
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "blog_show_author",
+        "label": {
+          "en": "Show author",
+          "de": "Autor anzeigen",
+          "fr": "Afficher l'auteur",
+          "it": "Mostra autore",
+          "ja": "執筆者を表示する",
+          "es": "Mostrar autor",
+          "pt-BR": "Exibir autor(a)"
+        },
+        "default": true
+      },
+      {
+          "type": "image_picker",
+          "id": "blod_details_banner",
+          "label": "Blog Details Banner Image"
+      },
+      {
+        "type": "checkbox",
+        "id": "blog_show_date",
+        "label": {
+          "en": "Show date",
+          "de": "Datum anzeigen",
+          "fr": "Afficher la date",
+          "it": "Mostra data",
+          "ja": "日付を表示する",
+          "es": "Mostrar fecha",
+          "pt-BR": "Exibir data"
+        },
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_share_buttons",
+        "label": {
+          "en": "Show social sharing buttons",
+          "de": "Buttons für Social Media anzeigen",
+          "fr": "Afficher les boutons de partage sur les médias sociaux",
+          "it": "Mostra i pulsanti per la condivisione sui social",
+          "ja": "ソーシャル共有ボタンを表示する",
+          "es": "Mostrar botones para compartir en redes sociales",
+          "pt-BR": "Exibir botões de compartilhamento em redes sociais"
+        },
+        "default": true
+      }
+    ]
+  }
+{% endschema %}

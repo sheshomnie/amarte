@@ -1,0 +1,161 @@
+<section class="fl-fix bg-white ov-h about-layout">
+    <div class="full-wrapper">
+        <ul class="fl-fix ingredient-slider">
+            {% for block in section.blocks %}
+                {% if block.settings.featured_ingredients == false %}
+                    {% continue %}
+                {% endif %}
+                <li class="item fl-fix">
+                    <div class="d-tb tbl-f w100">
+                        <div class="img-box d-tbc w50 ov-h va-m pos-r">
+                            <figure class="bgsz-cv pos-a bgp-cc" style="background-image: url('{{ block.settings.ingredients_image | img_url: 'master' }}');">
+                                <img src="{{ 'about-layout-placeholder.gif' | asset_url }}" alt="about-layout-placeholder" class="w100"> 
+                            </figure>
+                        </div>
+                        <div class="d-tbc w50 va-m pos-r">
+                            <div class="center-maker">
+                                <div class="wrapper">
+                                    <div class="text-box">
+                                        {% if section.settings.ingredients != blank %}
+                                            <div class="title-box fl-fix">
+                                                <h3 class="h5">{{ section.settings.ingredients }}</h3>
+                                            </div>
+                                        {% endif %}
+                                        <div class="info-box fl-fix">
+                                            {% if block.settings.ingredients_title != blank %}
+                                                <p><strong>{{ block.settings.ingredients_title }}</strong></p>
+                                            {% endif %}
+                                            {% if block.settings.ingredients_details != blank %}
+                                                {{ block.settings.ingredients_details }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+<section class="fl-fix glossary">
+    <div class="fl-fix ta-c glossary-btn">
+        <a href="javascript:void(0)" class="btn btn-black border transparent"><span>{{ section.settings.ingredients_glossary }}</span></a>
+    </div>
+    <div class="fl-fix bg-gray-2 glossary-box">
+        <div class="wrapper">
+            <div class="tt-u fl-fix glossary-index">
+                <ul class="fl-fix">
+                    <li class="d-f ai-c jc-c active"><a href="javascript:void(0)"><span>a</span></a></li>
+                    <li class="d-f ai-c jc-c"><a href="javascript:void(0)"><span>b</span></a></li>
+                    <li class="d-f ai-c jc-c"><a href="javascript:void(0)"><span>c</span></a></li>
+                    <li class="d-f ai-c jc-c"><a href="javascript:void(0)"><span>d</span></a></li>
+                    <li class="d-f ai-c jc-c"><a href="javascript:void(0)"><span>e</span></a></li>
+                    <li class="d-f ai-c jc-c"><a href="javascript:void(0)"><span>f</span></a></li>
+                    <li class="d-f ai-c jc-c"><a href="javascript:void(0)"><span>g</span></a></li>
+                    <li class="d-f ai-c jc-c"><a href="javascript:void(0)"><span>h</span></a></li>
+                    <li class="d-f ai-c jc-c"><a href="javascript:void(0)"><span>i</span></a></li>
+                    <li class="d-f ai-c jc-c"><a href="javascript:void(0)"><span>j</span></a></li>
+                    <li class="d-f ai-c jc-c"><a href="javascript:void(0)"><span>k</span></a></li>
+                    <li class="d-f ai-c jc-c"><a href="javascript:void(0)"><span>l</span></a></li>
+                    <li class="d-f ai-c jc-c"><a href="javascript:void(0)"><span>m</span></a></li>
+                    <li class="d-f ai-c jc-c"><a href="javascript:void(0)"><span>n</span></a></li>
+                    <li class="d-f ai-c jc-c"><a href="javascript:void(0)"><span>o</span></a></li>
+                    <li class="d-f ai-c jc-c"><a href="javascript:void(0)"><span>p</span></a></li>
+                    <li class="d-f ai-c jc-c"><a href="javascript:void(0)"><span>q</span></a></li>
+                    <li class="d-f ai-c jc-c"><a href="javascript:void(0)"><span>r</span></a></li>
+                    <li class="d-f ai-c jc-c"><a href="javascript:void(0)"><span>s</span></a></li>
+                    <li class="d-f ai-c jc-c"><a href="javascript:void(0)"><span>t</span></a></li>
+                    <li class="d-f ai-c jc-c"><a href="javascript:void(0)"><span>u</span></a></li>
+                    <li class="d-f ai-c jc-c"><a href="javascript:void(0)"><span>v</span></a></li>
+                    <li class="d-f ai-c jc-c"><a href="javascript:void(0)"><span>w</span></a></li>
+                    <li class="d-f ai-c jc-c"><a href="javascript:void(0)"><span>x</span></a></li>
+                    <li class="d-f ai-c jc-c"><a href="javascript:void(0)"><span>y</span></a></li>
+                    <li class="d-f ai-c jc-c"><a href="javascript:void(0)"><span>z</span></a></li>
+                </ul>
+            </div>
+            <div class="fl-fix glossary-detail">
+                <ul class="fl-fix index-list" data-type="index-a">
+                    {% for block in section.blocks %}
+                        {% if block.settings.featured_ingredients %}
+                            {% continue %}
+                        {% endif %}
+                        <li class="item">
+                            {% if block.settings.ingredients_title != blank %}
+                                <div class="title ingredient-heading">
+                                    <strong>{{ block.settings.ingredients_title }}</strong>
+                                </div>
+                            {% endif %}
+                            {% if block.settings.ingredients_details != blank %}
+                                <div class="short-info">
+                                    {{ block.settings.ingredients_details }}
+                                </div>
+                            {% endif %}                            
+                        </li>  
+                    {% endfor %}                  
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %} 
+  {
+    "name": {
+      "en": "Ingredients"
+    },
+    "settings": [
+      {
+        "type": "text",
+        "id": "ingredients",
+        "label": "Heading",
+        "default": "Ingredients" 
+      },
+      {
+        "type": "text",
+        "id": "ingredients_glossary",
+        "label": "Heading",
+        "default": "INGREDIENTS GLOSSARY" 
+      }
+    ],
+    "blocks": [
+      {
+        "type": "text_block",
+        "name": "Ingredients",
+        "settings": [
+            {
+                "type": "text",
+                "id": "ingredients_title",
+                "label": "Ingredients Title",
+                "default": "Add a title of Ingredients"
+            },
+            {
+                "type": "image_picker",
+                "id": "ingredients_image",
+                "label": "Ingredients Image"
+            },          
+            {
+                "type": "richtext",
+                "id": "ingredients_details",
+                "label": "Ingredients Details",
+                "default": "<p>Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>"
+            },
+            {
+              "type": "checkbox",
+              "id": "featured_ingredients",
+              "label": "Show As Featured Ingredients",
+              "default": false
+            },
+            {
+              "type": "textarea",
+              "id": "ingredient_tags",
+              "label": "Tags",
+              "info": "Place your tags(comma separated)!",
+              "placeholder": "Tags"
+           }
+        ]
+      }
+    ]
+  }
+{% endschema %}

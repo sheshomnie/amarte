@@ -1,0 +1,68 @@
+<section class="fl-fix pos-r blog-nav">
+    <div class="small-wrapper pos-r">
+        <div class="fl-fix bg-white links">
+            <div class="fl-l">
+                {% unless linklists[section.settings.blog_navigation_menu] == blank %}
+                    <ul class="fl-fix">
+                        {% for link in linklists[section.settings.blog_navigation_menu].links %}
+                            {% if link.links != blank %}
+                                <li class="pos-r has-menu">
+                                    <a class="link" href="{{ link.url }}"><span>{{ link.title }}</span></a>
+                                    <ul class="fl-fix">
+                                        {% for childlink in link.links %}
+                                            <li>
+                                                <a class="link" href="{{ link.url }}"><span>{{ link.title }}</span></a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% else %}
+                                <li class="pos-r">
+                                    <a class="link" href="{{ link.url }}"><span>{{ link.title }}</span></a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                {% endunless %}
+            </div>
+            <div class="fl-r">
+                <select name="sort_by" class="right">
+                    <option value="">{{ 'blogs.listing.sort_by' | t }}</option>
+                    <option value="name_asc">{{ 'blogs.listing.name_asc' | t }}</option>
+                    <option value="name_desc">{{ 'blogs.listing.name_desc' | t }}</option>
+                    <option value="date_asc">{{ 'blogs.listing.date_asc' | t }}</option>
+                    <option value="date_desc">{{ 'blogs.listing.date_desc' | t }}</option>
+                </select>
+                <input type="hidden" name="page_url" value="{{shop.url | append: page.url }}" />
+            </div>
+        </div>
+    </div>
+</section>
+{% schema %}
+{
+    "name": {
+      "en": "Blog Header"
+    },
+    "settings": [
+    {
+        "type"  :   "link_list",
+        "id"    :   "blog_navigation_menu",
+        "label" :   {
+            "en":   "Select Blog Menu"
+        }
+    }
+    ]
+}
+{% endschema %}
+
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+        var sortBy = (window.location.search != "") ? window.location.search.split('?')[1].split('&')[0].split('=')[1] : '';
+        jQuery('select[name="sort_by"]').val(sortBy);
+    });
+    jQuery('select[name="sort_by"]').change(function(){
+        var sort_value = jQuery(this).val();
+        var page_url = jQuery('input[name=page_url]').val();
+        window.location = page_url+'?sortby='+sort_value+'&cache=false';
+    });
+</script>

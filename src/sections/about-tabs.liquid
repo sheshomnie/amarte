@@ -1,0 +1,35 @@
+
+<section class="fl-fix pos-r cat-nav">
+    <div class="wrapper pos-r">
+        {% include 'about-tab-links' %}
+        {% if section.settings.about_contact_button_label != blank and section.settings.about_contact_button_link != blank %}
+            <div class="contact-box pos-a">
+                <a class="btn transparent border btn-black" href="{{ section.settings.about_contact_button_link }}"><span>{{ section.settings.about_contact_button_label | escape }}</span></a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+{% schema %}
+  {
+    "name": "About Tabs",
+    "class": "about_tabs",
+    "settings": [
+        {
+            "type": "text",
+            "id": "about_contact_button_label",
+            "label": "Button label"
+        },
+        {
+            "type": "url",
+            "id": "about_contact_button_link",
+            "label": "Button link"
+        },
+      {
+        "type": "link_list",
+        "id": "about_linklist",
+        "label": "About Tabs menu"
+      }
+    ]
+  }
+{% endschema %}

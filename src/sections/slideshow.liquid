@@ -1,0 +1,187 @@
+<section class="fl-fix pos-r home-banner">
+    <ul class="fl-fix home-slider">
+        {% for block in section.blocks %}
+            <li class="fl-fix pos-r">
+                <figure class="bgsz-cv" style="background-image:url({{ block.settings.slide_image | img_url: 'master' }});"> 
+                    <img src="{{ block.settings.slide_image | img_url: 'master' }}" alt="" class="bgsz-cv-img">
+                    <figcaption class="caption pos-a">
+                        <div class="small-wrapper">
+                            <div class="text-box ta-c">
+                                <h1 class="h2 title d-ib">{{ block.settings.slide_title }}<span>{{ block.settings.slide_subheading }}</span> </h1>
+                                <div class="short-info">
+                                  {{ block.settings.slide_details }}
+                                </div>
+                                <div class="action-box">
+                                    <a href="{{ section.settings.button_link }}" class="btn btn-peach"><span>{{ block.settings.slide_text | escape }}</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </figcaption>
+                </figure>
+            </li>
+        {% endfor %}
+    </ul>
+    {% if section.settings.free_shipping_text != '' %}
+      <div class="promo-box ta-c pos-a">
+          <div class="small-wrapper">
+              <p>{{ section.settings.free_shipping_text }}</p>
+          </div>
+          <a href="#" class="close-btn"><span>&nbsp;</span></a>
+      </div>
+    {% endif %}
+</section>
+
+{% schema %}
+  {
+    "name": {
+      "en": "Slideshow",
+      "de": "Slideshow",
+      "fr": "Diaporama",
+      "it": "Presentazione",
+      "ja": "スライドショー",
+      "es": "Diapositivas",
+      "pt-BR": "Apresentação de slides"
+    },
+    "class": "index-section index-section--flush",
+    "max_blocks": 4,
+    "settings": [
+        {
+          "type": "text",
+          "id": "free_shipping_text",
+          "label": {
+            "en": "Free Shipping Text"
+          },
+          "default": {
+            "en": "FREE SHIPPING TO USA & CANADA"
+          }
+        }
+    ],
+    "blocks": [
+      {
+        "type": "image",
+        "name": {
+          "en": "Image slide",
+          "de": "Foto-Slide",
+          "fr": "Diapositive (image)",
+          "it": "Slide immagine",
+          "ja": "画像スライド",
+          "es": "Diapositiva de imagen",
+          "pt-BR": "Slide de imagem"
+        },
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "slide_image",
+            "label": {
+              "en": "Image",
+              "de": "Foto",
+              "fr": "Image",
+              "it": "Immagine",
+              "ja": "画像",
+              "es": "Imagen",
+              "pt-BR": "Imagem"
+            }
+          },
+          {
+            "type": "text",
+            "id": "slide_title",
+            "label": {
+              "en": "Heading",
+              "de": "Titel",
+              "fr": "En-tête",
+              "it": "Heading",
+              "ja": "見出し",
+              "es": "Título",
+              "pt-BR": "Título"
+            },
+            "default": {
+              "en": "Image slide",
+              "de": "Foto-Slide",
+              "fr": "Diapositive (image)",
+              "it": "Slide immagine",
+              "ja": "画像スライド",
+              "es": "Diapositiva de imagen",
+              "pt-BR": "Slide de imagem"
+            }
+          },
+          {
+            "type": "text",
+            "id": "slide_subheading",
+            "label": {
+              "en": "Subheading",
+              "de": "Untertitel",
+              "fr": "Sous-titre",
+              "it": "Sottotitolo",
+              "ja": "小見出し",
+              "es": "Subtítulo",
+              "pt-BR": "Subtítulo"
+            },
+            "default": {
+              "en": "Tell your brand's story through video and images",
+              "de": "Erzählen Sie Ihre Geschichte mit Videos und Fotos",
+              "fr": "Racontez votre histoire avec des vidéos et des images",
+              "it": "Racconta la storia del tuo brand con video e immagini",
+              "ja": "あなたのブランドのストーリーをビデオや画像で伝える",
+              "es": "Cuenta la historia de tu marca a través de videos e imágenes",
+              "pt-BR": "Conte a história da sua marca com vídeos e imagens"
+            }
+          },
+          {
+            "type": "richtext",
+            "id": "slide_details",
+            "label": {
+              "en": "Details"
+            },
+            "default": {
+              "en": "<p>Image slide content</p>"
+            }
+          },
+          {
+            "type": "url",
+            "id": "slide_link",
+            "label": {
+              "en": "Slide link"
+            }
+          },
+          {
+            "type": "text",
+            "id": "slide_text",
+            "label": {
+              "en": "Slide Text"
+            }
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": {
+          "en": "Slideshow",
+          "de": "Slideshow",
+          "fr": "Diaporama",
+          "it": "Presentazione",
+          "ja": "スライドショー",
+          "es": "Diapositivas",
+          "pt-BR": "Apresentação de slides"
+        },
+        "category": {
+          "en": "Image",
+          "de": "Foto",
+          "fr": "Image",
+          "it": "Immagine",
+          "ja": "画像",
+          "es": "Imagen",
+          "pt-BR": "Imagem"
+        },
+        "blocks": [
+          {
+            "type": "image"
+          },
+          {
+            "type": "image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
