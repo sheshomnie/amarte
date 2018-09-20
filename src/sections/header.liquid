@@ -16,11 +16,12 @@
                               <li>
                                   <a href="{{ childlink.url }}"><span>{{ childlink.title }}</span></a>
                               </li>
-                            {% endfor %}
+                            {% endfor %}							              
                         </ul>
                     {% endif %}
-                </li>
+                </li>                
               {% endfor %}
+              <li class="visible-mobile"><a href="/account/login" title="login">{{ 'layout.customer.log_in' | t }}</a></li>
             </ul>
         </nav>
         {% if settings.ajax_cart_method == 'drawer' %}  
@@ -31,11 +32,12 @@
         {% endif %}
         <section class="minicart"><div id="quickcart_div"></div></section>
         <div class="header-right fl-r">
-            <div class="search-panel fl-l pos-r">
+            <div class="search-panel fl-l">
                 <div class="search-box fl-fix pos-r">
-                    <form action="#">
-                        <input type="text" placeholder="Enter name or product #" name="Search" maxlength="40">
-                        <input type="button" class="btn" value="Search">
+                    <form action="/search" method="get">
+						            <span class="close-b"></span>
+                        <input type="search" name="q" placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.placeholder' | t }}" maxlength="40">
+                        <input type="submit" class="btn" value="{{ 'general.search.submit' | t }}">
                     </form>
                 </div>
                 <span class="search-btn"></span>
@@ -63,6 +65,10 @@
                     <a href="/cart" title="my cart" class="mycart cart-toggle" id="CartCount"><span class="qty">{{ cart.item_count }}</span></a>
                 </div>
             </div>
+			 <div class="nav-toggle">
+                            <span>&nbsp;</span>
+                        </div>
+
         </div>
     </div>
 </header>

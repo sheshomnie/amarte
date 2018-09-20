@@ -1,6 +1,8 @@
-{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- include 'bold-product' with product, hide_action: 'break', output: 'none' -%}
+{%- assign current_variant = bold_selected_or_first_available_variant -%}
+{%- include 'bold-variant' with current_variant, output: 'none' -%}
 {%- assign compare_at_price = current_variant.compare_at_price -%}
-{%- assign price = current_variant.price -%}
+{%- assign price = bold_variant_price -%}
 <section class="fl-fix pos-r home-banner bg-peach-1">
     <div class="d-tb tbl-f w100 item">
         <div class="img-box d-tbc w65 ov-h va-m bg-peach-1 pos-r">
@@ -64,7 +66,9 @@
                                               {{ option.name }}
                                             </label>
                                             <select class="single-option-selector single-option-selector-{{ section.id }} product-form__input" id="SingleOptionSelector-{{ forloop.index0 }}" data-index="option{{ forloop.index }}">
-                                              {% for value in option.values %}
+{%- assign optName = 'options' | append: forloop.index -%}
+{%- assign option_values = [optName] | default: option.values -%}
+{%- for value in option_values -%}
                                                 <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
                                               {% endfor %}
                                             </select>
@@ -73,9 +77,9 @@
                                     {% endunless %}
                                     <select name="id" id="ProductSelect-{{ section.id }}" class="product-form__variants no-js">
                                         {% for variant in product.variants %}
-                                            {% include 'bold-variant' with variant, hide_action: 'skip'  %}
+{%- include 'bold-variant' with variant, hide_action: 'skip' -%}
                                             {% if variant.available %}
-                                                <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">
+                                                <option {% if variant == bold_selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">
                                                   {{ variant.title }}
                                                 </option>
                                             {% else %}
@@ -164,7 +168,7 @@
 
 {% unless product == empty %}
   <script type="application/json" id="ProductJson-{{ section.id }}">
-    {{ product | json }}
+    {%- include 'bold-product', output: 'json' -%}
   </script>
 {% endunless %}
 <script type="text/javascript">

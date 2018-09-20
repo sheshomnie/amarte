@@ -8,7 +8,8 @@
   {% comment %}
     Get first variant, or deep linked one
   {% endcomment %}
-  {%- assign current_variant = product.selected_or_first_available_variant -%}
+  {%- assign current_variant = bold_selected_or_first_available_variant -%}
+{%- include 'bold-variant' with current_variant, output: 'none' -%}
   {%- assign product_thumb_size = '110x110' -%}
   {%- assign product_image_zoom_size = '1024x1024' -%}
   {%- assign product_image_scale = '2' -%}
@@ -41,7 +42,7 @@
   <div class="grid product-single{% if section.settings.enable_payment_button %} product-single--{{ section.settings.image_size }}-image{% endif %}">
     <div class="grid__item product-single__photos {{ product_image_width }}{% if section.settings.image_size == 'full' %} product-single__photos--full{% endif %}">
       {% unless section_onboarding %}
-        {% assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image %}
+        {% assign featured_image = bold_selected_or_first_available_variant.featured_image | default: product.featured_image %}
         {% for image in product.images %}
           {% capture img_id %}FeaturedImage-{{ section.id }}-{{ image.id }}{% endcapture %}
           {% capture img_class %}product-featured-img{% endcapture %}
@@ -114,7 +115,7 @@
     <div class="grid__item {{ product_description_width }}">
       <div class="product-single__meta">
         {% unless section_onboarding %}
-          {%- assign price = current_variant.price -%}
+          {%- assign price = bold_variant_price -%}
           {%- assign available = current_variant.available -%}
         {% else %}
           {%- assign price = 1999 -%}
@@ -161,7 +162,9 @@
                         {{ option.name }}
                       </label>
                       <select class="single-option-selector single-option-selector-{{ section.id }} product-form__input" id="SingleOptionSelector-{{ section.id }}-{{ forloop.index0 }}" data-index="option{{ forloop.index }}">
-                        {% for value in option.values %}
+{%- assign optName = 'options' | append: forloop.index -%}
+{%- assign option_values = [optName] | default: option.values -%}
+{%- for value in option_values -%}
                           <option value="{{ value | escape }}"{% if option.selected_value == value %} selected="selected"{% endif %}>{{ value }}</option>
                         {% endfor %}
                       </select>
@@ -171,8 +174,9 @@
 
                 <select name="id" id="ProductSelect-{{ section.id }}" class="product-form__variants no-js">
                   {% for variant in product.variants %}
+{%- include 'bold-variant' with variant, hide_action: 'skip' -%}
                     {% if variant.available %}
-                      <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">
+                      <option {% if variant == bold_selected_or_first_available_variant %} selected="selected" {% endif %} value="{{ variant.id }}">
                         {{ variant.title }}
                       </option>
                     {% else %}
@@ -232,7 +236,7 @@
 
 {% unless product == empty %}
   <script type="application/json" id="ProductJson-{{ section.id }}">
-    {{ product | json }}
+    {%- include 'bold-product', output: 'json' -%}
   </script>
 {% endunless %}
 
@@ -467,13 +471,14 @@
   },
   "offers": [
     {%- for variant in product.variants -%}
+{%- include 'bold-variant' with variant, hide_action: 'skip' -%}
       {
         "@type" : "Offer",
         {%- if variant.sku != blank -%}
           "sku": "{{ variant.sku }}",
         {%- endif -%}
         "availability" : "http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}",
-        "price" : "{{ variant.price | divided_by: 100.00 }}",
+        "price" : "{{ bold_variant_price | divided_by: 100.00 }}",
         "priceCurrency" : "{{ shop.currency }}",
         "url" : "{{ shop.url }}{{ variant.url }}"
       }{% unless forloop.last %},{% endunless %}

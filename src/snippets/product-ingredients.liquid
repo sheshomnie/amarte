@@ -1,46 +1,33 @@
 <section class="fl-fix pos-r ingredients-section" id="ingredients">
     <div class="wrapper">
-        <div class="row clearfix">
-            <div class="heading-box pos-r type-2">
-                <h4 class="title tt-u">Key Ingredients</h4>
+        {% if product.metafields.ingredients.key_ingredients_content != '' %}
+            <div class="row clearfix">
+                <div class="heading-box pos-r type-2">
+                    <h4 class="title tt-u">{{ product.metafields.ingredients.key_ingredients_title }}</h4>
+                </div>
+                {{ product.metafields.ingredients.key_ingredients_content }}
             </div>
-            <div class="col-3">
-                <div class="col">
-                    <h6 class="title">Arbutin</h6>
-                    <p class="ingred-desc">Antioxidant – brightens, calms.</p>
+        {% endif %}
+        {% if product.metafields.ingredients.full_list_content != '' %}
+            <div class="row clearfix">
+                <div class="heading-box pos-r type-2">
+                    <h4 class="title tt-u">{{ product.metafields.ingredients.full_list_title }}</h4>
                 </div>
                 <div class="col">
-                    <h6 class="title">Genistein</h6>
-                    <p class="ingred-desc">Antioxidant – lightens, helps prevent DNA damage.</p>
+                    <p><strong>{{ product.metafields.ingredients.full_list_subtitle }}</strong></p>
+                    <p class="ingredient-desc">{{ product.metafields.ingredients.full_list_content }}</p>
+                </div>
+            </div>
+        {% endif %}
+        {% if product.metafields.why_when_how.content != '' %}
+            <div class="row clearfix">
+                <div class="heading-box pos-r type-2">
+                    <h4 class="title tt-u">{{ product.metafields.why_when_how.title }}</h4>
                 </div>
                 <div class="col">
-                    <h6 class="title">Purified Nano-Sulfur</h6>
-                    <p class="ingred-desc">Brightens, exfoliates, purifies.</p>
+                    <p class="ingredient-desc">{{ product.metafields.why_when_how.content }}</p>
                 </div>
             </div>
-        </div>
-        <div class="row clearfix">
-            <div class="heading-box pos-r type-2">
-                <h4 class="title tt-u">Full Ingredients List</h4>
-            </div>
-            <div class="col">
-                <p><strong>Click any ingredient to learn the relevant unique benefits</strong></p>
-                <p class="ingredient-desc">water, Zea mays (corn) starch, sodium cocoyl isethionate, sodium lauroyl
-                    aspartate, titanium dioxide, Phaseolus radiatus seed extract, Oryza sativa (rice) bran extract,
-                    Triticum vulgare (wheat) bran extract, Salix alba (willow) bark extract, Pinus densiflora
-                    (pine) extract, pearl powder, arbutin, genistein, elemental sulfur, dipotassium glycyrrhizate,
-                    sodium palmitate, phenoxyethanol</p>
-            </div>
-        </div>
-        <div class="row clearfix">
-            <div class="heading-box pos-r type-2">
-                <h4 class="title tt-u">Why, When, How</h4>
-            </div>
-            <div class="col">
-                <p class="ingredient-desc">Exfoliation creates a luminous glow and allows for optimal absorption
-                    of skin care products. Use morning and night. Apply product to palm, add water, and bring
-                    to a rich lather. With light, circular motions gently massage face with fingertips. Rinse.</p>
-            </div>
-        </div>
+        {% endif %}
     </div>
 </section>

@@ -55,12 +55,14 @@
                         </div>
                         <ul class="fl-fix grid">
                             {% for product in collection.products %}
-                                {% include 'bold-product' with product, hide_action: 'skip' %}
+{%- include 'bold-product' with product, hide_action: 'skip' -%}
                                 <li class="item">
-                                    <figure class="fl-fix bgsz-cv pos-r" style="background-image:url({{ product.featured_image | img_url: 'master' }});">
-                                        <a href="{{ product.url }}" class="d-b pos-r">
-                                            <img src="{{ 'product-placeholder.gif' | asset_url }}" alt="product-placeholder" class="bgsz-cv-img">
-                                        </a>
+                                    <figure class="fl-fix  pos-r" >
+										<div class="bgsz-cv">
+											<a href="{{ product.url }}" class="d-b pos-r" style="background-image:url({{ product.featured_image | img_url: 'master' }});">
+												<img src="{{ 'product-placeholder.gif' | asset_url }}" alt="product-placeholder" class="bgsz-cv-img">
+											</a>
+										</div>
                                     </figure>
                                     <div class="info-box fl-fix">
                                         <div class="title-box">

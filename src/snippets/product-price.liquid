@@ -1,7 +1,7 @@
 <!-- snippet/product-price.liquid -->
 {% if variant.title %}
   {%- assign compare_at_price = variant.compare_at_price -%}
-  {%- assign price = variant.price -%}
+  {%- assign price = bold_variant_price -%}
   {%- assign available = variant.available -%}
 {% else %}
   {%- assign compare_at_price = 1999 -%}

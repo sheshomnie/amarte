@@ -1,4 +1,3 @@
-
 <!-- bold-cart-item.liquid -->
 {% comment %} Last updated 2018-May-14 {% endcomment %}
 {% capture bold_cart_item_liquid %}
@@ -352,7 +351,24 @@ To use this file:
         BOLD = BOLD || {};
         BOLD.recurring_orders = BOLD.recurring_orders || {};
         BOLD.recurring_orders.convertible_products = BOLD.recurring_orders.convertible_products || {};
-        BOLD.recurring_orders.convertible_products['{{bold_item.properties._convertible_product_handle}}'] = {{ all_products[bold_item.properties._convertible_product_handle] | json }};
+        var convertible_handle = {{bold_item.properties._convertible_product_handle | json }};
+        var convertible_variant = {{bold_item.properties._convertible_variant_id | json }};
+        var convertible_product = {{ all_products[bold_item.properties._convertible_product_handle] | json }};
+
+        if(BOLD.recurring_orders.addConvertibleVariants)
+        {
+            if(BOLD.recurring_orders.convertible_products[convertible_handle])
+            {
+                BOLD.recurring_orders.addConvertibleVariants(convertible_product, convertible_handle, convertible_variant);
+            } else {
+                BOLD.recurring_orders.convertible_products[convertible_handle] = {
+                    title: convertible_product.title,
+                    price: convertible_product.price,
+                    variants: [],
+                };
+                BOLD.recurring_orders.addConvertibleVariants(convertible_product, convertible_handle, convertible_variant);
+            }
+        }
     </script>
 {% endif %}
 

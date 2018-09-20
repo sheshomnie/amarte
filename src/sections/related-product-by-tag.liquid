@@ -1,3 +1,4 @@
+{%- include 'bold-product' with product, hide_action: 'break', output: 'none' -%}
 {% if section.settings.show_related_products == true %}
 
     {% comment %}
@@ -55,6 +56,7 @@
       {% assign current_product = product %}
       {% capture related_items %}
           {% for product in collections.all.products %}
+{%- include 'bold-product' with product, hide_action: 'skip' -%}
               {% unless product.handle == current_product.handle %}
               {% unless same_vendor and current_product.vendor != product.vendor %}
               {% unless same_type and current_product.type != product.type %}
@@ -87,7 +89,7 @@
                                       </ul>
                                   </div>
                                   <div class="price">
-                                      <span>{{ product.price | money }}</span>
+                                      <span>{{ bold_price | money }}</span>
                                   </div>
                               </div>
                           </div>

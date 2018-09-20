@@ -1,3 +1,4 @@
+{%- include 'bold-cart' -%}
 <div class="page-width" data-section-id="{{ section.id }}" data-section-type="cart-template">
 
   {% if cart.item_count > 0 %}
@@ -15,6 +16,7 @@
         </thead>
         <tbody>
           {% for item in cart.items %}
+{%- include 'bold-cart-item' with item -%}
             <tr class="cart__row border-bottom line{{ forloop.index }}{% if forloop.first %} border-top{% endif %}">
               <td class="cart__image-wrapper">
                 <div>
@@ -25,6 +27,7 @@
                 <div class="list-view-item__title">
                   <a href="{{ item.url }}">
                     {{ item.product.title }}
+<span class='fox-cart-item-success-notes' data-key='{{item.key}}'></span><span class='fox-cart-item-upsell-notes' data-key='{{item.key}}'></span>
                     {% if item.quantity > 1 %}
                       <span class="medium-up--hide"><span class="visually-hidden">{{ 'cart.label.quantity' | t }}</span>(x{{ item.quantity }})</span>
                     {% endif %}
@@ -68,18 +71,20 @@
                 {% endif %}
 
                 <p class="small--hide">
-                  <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="btn btn--small btn--tertiary cart__remove" aria-label="{{ 'cart.general.remove' | t }} {{ item.product.title }}">{{ 'cart.general.remove' | t }}</a>
+                  <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="btn btn--small btn--tertiary cart__remove" aria-label="{{ 'cart.general.remove' | t }} {{ item.product.title }}
+<span class='fox-cart-item-success-notes' data-key='{{item.key}}'></span><span class='fox-cart-item-upsell-notes' data-key='{{item.key}}'></span>">{{ 'cart.general.remove' | t }}</a>
                 </p>
               </td>
               <td class="cart__price-wrapper">
-                {{ item.price | money }}
+                {{ bold_item_price | money }}
 
                 {% for discount in item.discounts %}
                   <div class="cart-item__discount medium-up--hide">{{ discount.title }}</div>
                 {% endfor %}
 
                 <div class="cart__edit medium-up--hide">
-                  <button type="button" class="btn btn--secondary btn--small js-edit-toggle cart__edit--active" data-target="line{{ forloop.index }}" aria-label="{{ 'cart.general.edit' | t }} {{ item.product.title }}" aria-expanded="false">
+                  <button type="button" class="btn btn--secondary btn--small js-edit-toggle cart__edit--active" data-target="line{{ forloop.index }}" aria-label="{{ 'cart.general.edit' | t }} {{ item.product.title }}
+<span class='fox-cart-item-success-notes' data-key='{{item.key}}'></span><span class='fox-cart-item-upsell-notes' data-key='{{item.key}}'></span>" aria-expanded="false">
                     <span class="cart__edit-text--edit">{{ 'cart.general.edit' | t }}</span>
                     <span class="cart__edit-text--cancel">{{ 'cart.general.cancel' | t }}</span>
                   </button>
@@ -92,12 +97,12 @@
                 </div>
               </td>
               <td class="text-right small--hide">
-                {% if item.original_line_price != item.line_price %}
+                {% if item.original_line_price != bold_item_line_price %}
                   <div class="cart-item__original-price"><s>{{ item.original_line_price | money }}</s></div>
                 {% endif %}
 
                 <div>
-                  {{ item.line_price | money }}
+                  <span class='fox-cart-item-line-price' data-key='{{item.key}}'>{{ bold_item_line_price | money }}</span>
                 </div>
 
                 {% for discount in item.discounts %}
@@ -108,12 +113,14 @@
             <tr class="medium-up--hide cart__update-wrapper">
               <td colspan="3" class="text-right">
                 <div class="cart__update-controls">
-                  <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="btn btn--small btn--tertiary cart__remove medium-up--hide" aria-label="{{ 'cart.general.remove' | t }} {{ item.product.title }}">{{ 'cart.general.remove' | t }}</a>
+                  <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="btn btn--small btn--tertiary cart__remove medium-up--hide" aria-label="{{ 'cart.general.remove' | t }} {{ item.product.title }}
+<span class='fox-cart-item-success-notes' data-key='{{item.key}}'></span><span class='fox-cart-item-upsell-notes' data-key='{{item.key}}'></span>">{{ 'cart.general.remove' | t }}</a>
                   <div class="cart__qty">
                     <label for="updates_{{ item.key }}" class="cart__qty-label">{{ 'cart.label.quantity' | t }}</label>
                     <input class="cart__qty-input" type="number" id="updates_{{ item.key }}" value="{{ item.quantity }}" min="0" pattern="[0-9]*" data-quantity-item="{{ forloop.index }}">
                   </div>
-                  <button type="submit" name="update" class="btn btn--small cart__update medium-up--hide" aria-label="{{ 'cart.general.update' | t }} {{ item.product.title }}">{{ 'cart.general.update' | t }}</button>
+                  <button type="submit" name="update" class="btn btn--small cart__update medium-up--hide" aria-label="{{ 'cart.general.update' | t }} {{ item.product.title }}
+<span class='fox-cart-item-success-notes' data-key='{{item.key}}'></span><span class='fox-cart-item-upsell-notes' data-key='{{item.key}}'></span>">{{ 'cart.general.update' | t }}</button>
                 </div>
               </td>
             </tr>
@@ -132,7 +139,7 @@
           <div class="grid__item text-right small--text-center{% if section.settings.cart_notes_enable %} medium-up--one-half{% endif %}">
             <div>
               <span class="cart__subtotal-title">{{ 'cart.general.subtotal' | t }}</span>
-              <span class="cart__subtotal">{{ cart.total_price | money }}</span>
+              <span class="cart__subtotal"><span class="fox-original-cart-total">{{ bold_cart_total_price | money }}</span><span class="fox-cart-total"></span><div class="additional-notes"><span class="fox-minimums-note"></span><span class="fox-extra-note "></span></div></span>
             </div>
             {% if cart.total_discounts > 0 %}
               <div class="cart__savings">

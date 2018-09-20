@@ -54,7 +54,7 @@
   <h2 class="visually-hidden">{{ 'general.search.heading' | t: count: search.results_count }}</h2>
   <ul class="page-width list-view-items">
     {% for item in search.results %}
-      {% include 'bold-product' with item, hide_action: 'skip' %}
+{%- include 'bold-product' with item, hide_action: 'skip' -%}
       <li class="list-view-item">
           {% if item.object_type == 'product' %}
             {% include 'product-card-list', product: item %}

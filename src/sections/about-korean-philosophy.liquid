@@ -3,6 +3,9 @@
         <ul class="fl-fix">
             {% for block in section.blocks %}
                 <li class="d-tb tbl-f w100 item">
+				<div class="title-box fl-fix visible-980">
+                                            <h3 class="h5">{{ section.settings.korean_philosophy_heading }}</h3>
+                                        </div>
                     <div class="img-box d-tbc w50 ov-h va-m pos-r">
                         <figure class="bgsz-cv pos-a bgp-cc" style="background-image: url({{ block.settings.korean_philosophy_image | img_url: 'master' }});">
                             <img src="{{ 'about-layout-placeholder.gif' | asset_url }}" alt="about-layout-placeholder" class="w100"> 

@@ -1,4 +1,5 @@
 {%- assign blog = blogs['from-the-press'] -%}
+{% assign articles = blog.articles | sort: "published_at" %}
 {% assign showPress = false %}
 {% for article in articles %}
     {% assign blogTags = article.tags | uniq %}
@@ -15,7 +16,6 @@
                 <a href="{{ blog.url }}" class="btn" aria-label="{{ 'blogs.article.read_all' | t }}"><span>{{ 'blogs.article.read_all' | t }}</span></a>
             </div>
             <ul class="{% if blog.articles.size > 0 %}press-slider {% endif %}col-3">
-                {% assign articles = blog.articles | sort: "published_at" %}
                 {% for article in articles %}
                     {% assign blogTags = article.tags | uniq %}
                     {% if blogTags contains product.handle %}

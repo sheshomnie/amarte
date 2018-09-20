@@ -1,8 +1,7 @@
-
 {%- comment -%}
 
 BOLD-CSP-METAFIELD-VARIANT.LIQUID
-Last updated: 2018-April-5
+Last updated: 2018-July-31
 
 NOTE: Tag matching between customer tags and the shop metafield is case INSENSITIVE
 
@@ -39,18 +38,30 @@ FLAGS:
     {%- assign csp_customer_tag = bold_csp_customer_tag -%}
   {%- endunless -%}
 {%- endunless -%}
-{%- assign csp_metafield_namespace = 'csp' | append: bold_csp_variant_id -%}
 
+{%- assign csp_metafield_namespace = 'csp' | append: bold_csp_variant_id -%}
 {%- assign csp_metafield_key_single = bold_csp_customer_tag | append: '~' | append: '1' -%}
 {%- assign metafield_data_single = bold_csp_variant_base_product.metafields[csp_metafield_namespace][csp_metafield_key_single] | split: ',' -%}
+
+{%- assign tag_default_discount = shop.metafields.bold_csp_defaults[bold_csp_customer_tag] -%}
+
+{%- comment -%} Fall back to logged-out (default) discount {%- endcomment -%}
+{%- if metafield_data_single == blank and tag_default_discount == blank -%}
+  {%- assign csp_customer_tag = 'default' -%}
+  {%- assign metafield_data_single = bold_csp_variant_base_product.metafields[csp_metafield_namespace]['default~1'] | split: ',' -%}
+{%- endif -%}
+
 {%- assign across_variants_mode = metafield_data_single[5] | default: '0' -%}
 
-{%- assign item_qty = item.quantity | default: 1 -%}
-{%- if item != blank and across_variants_mode == '1' -%}
-  {%- comment -%} Use the product qty to find discounts rather than line item qty {%- endcomment -%}
+{%- assign item_qty = line_item.quantity | default: 1 -%}
+{%- if line_item != blank -%}
   {%- assign current_product_total = 0 -%}
   {%- for inner_item in cart.items -%}
-    {%- if item.product_id == inner_item.product_id -%}
+    {%- if across_variants_mode == '0' and line_item.id == inner_item.id -%}
+      {%- comment -%} Use the variant qty to find discounts {%- endcomment -%}
+      {%- assign current_product_total = current_product_total | plus: inner_item.quantity -%}
+    {%- elsif across_variants_mode == '1' and line_item.product_id == inner_item.product_id -%}
+      {%- comment -%} Use the product qty to find discounts {%- endcomment -%}
       {%- assign current_product_total = current_product_total | plus: inner_item.quantity -%}
     {%- endif -%}
   {%- endfor -%}
@@ -65,7 +76,7 @@ FLAGS:
   {%- endif -%}
 {%- endfor -%}
 
-{%- unless metafield_data == blank -%}
+{%- if metafield_data != blank -%}
 
   {%- assign price_type = metafield_data[0] -%}
   {%- assign discount_value = metafield_data[1] | times: 1 -%}
@@ -98,7 +109,9 @@ FLAGS:
     {%- assign new_price = vanity_price -%}
   {%- endif -%}
 
-  {%- assign bold_variant_price = new_price -%}
+  {%- if new_price < bold_csp_variant.price -%}
+  	{%- assign bold_variant_price = new_price -%}
+  {%- endif -%}
 
   {%- if taxable == '1' -%}
     {%- assign bold_variant_taxable = true -%}
@@ -106,4 +119,10 @@ FLAGS:
     {%- assign bold_variant_taxable = false -%}
   {%- endif -%}
 
-{%- endunless -%}
+{%- else -%}
+  {%- comment -%} APPLY TAG DEFAULT DISCOUNT {%- endcomment -%}
+  {%- if tag_default_discount != blank -%}
+    {%- assign new_price = bold_variant_price | default: bold_csp_variant.price -%}
+    {%- assign bold_variant_price = new_price | times: tag_default_discount | round -%}
+  {%- endif -%}
+{%- endif -%}

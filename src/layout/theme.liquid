@@ -47,6 +47,8 @@
   {{ 'theme.scss.css' | asset_url | stylesheet_tag }}
   {{ 'fonts.css' | asset_url | stylesheet_tag }}
   {{ 'amarte-style.css' | asset_url | stylesheet_tag }}
+   {{ 'overwrite.css' | asset_url | stylesheet_tag }}
+  {{ 'jquery.fancybox.min.css' | asset_url | stylesheet_tag }}
 
   <script>
     var theme = {
@@ -99,8 +101,9 @@
   <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
 
   {{ content_for_header }}
+{%- include 'bold-common' -%}
+{%- include 'bold-product' with product, hide_action: 'header' -%}
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.3.1/jquery.cookie.min.js"></script>
-{% include 'bold-common' %}
 </head>
 
 <body class="template-{{ template | split: '.' | first }}">
@@ -135,8 +138,12 @@
         {% include 'ingredient-popup' %}
     </div>
 
-    <script type="text/javascript" charset="utf-8">
-        var shappify_customer_tags ={{ customer.tags|json }}
-    </script>
+      {% if customer.tags.size > 0 %}
+        {% include 'fox-wholesale' %}
+      {% endif %}
+    
+  <script type="text/javascript" charset="utf-8">
+    var shappify_customer_tags = {{ customer.tags | json }}
+  </script>
 </body>
 </html>

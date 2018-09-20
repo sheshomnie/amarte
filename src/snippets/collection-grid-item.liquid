@@ -14,8 +14,9 @@
   {% endif %}
   <ul>
   {% for product in collection.products %}
+{%- include 'bold-product' with product, hide_action: 'skip' -%}
     <li>
-      {%- assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image -%}
+      {%- assign featured_image = bold_selected_or_first_available_variant.featured_image | default: product.featured_image -%}
       {% if featured_image %}
       <a href="{{ product.url }}">
       <figure>
@@ -25,7 +26,7 @@
       {% endif  %}
         <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
       <strong><a href="{{ product.url }}">{{ product.title }}</a></strong>
-      <p>{{ product.price | money_with_currency }}</p>
+      <p>{{ bold_price | money_with_currency }}</p>
     </li>
   {% endfor %}
   </ul>

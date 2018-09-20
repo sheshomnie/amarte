@@ -9,6 +9,7 @@
             {%- assign collection = collections[section.settings.bestsellers_collection] -%}
             <ul class="fl-fix grid">
                 {% for product in collection.products limit: section.settings.product_limit %}
+				{%- include 'bold-product' with product, hide_action: 'skip' -%}
                     <li class="item">
                         <figure class="fl-fix bgsz-cv pos-r" style="background-image:url({{ product.featured_image | img_url: 'master' }});">
                             <a href="#" class="d-b pos-r">
@@ -37,7 +38,7 @@
                                     </ul>
                                 </div>
                                 <div class="price">
-                                    <span>{{ product.price | money }}</span>
+                                    <span>{{ bold_price | money }}</span>
                                 </div>
                             </div>
                         </div>
