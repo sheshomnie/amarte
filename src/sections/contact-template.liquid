@@ -1,25 +1,25 @@
-<div class="d-tbc w50 va-t">
-		<div class="text-box">
-				<div class="address-box fl-fix">
-						<div class="address">
-								{{ section.settings.contact_address }}
-						</div>
-						<div class="address">
-								{{ section.settings.office_hours }}
-						</div>
-						<div class="address">
-								{{ section.settings.press_inquiries }}
-						</div>
-						<div class="address">
-								{{ section.settings.customer_services }}
-						</div>
-				</div>
-		</div>
+<div class="text-box">
+        <div class="address-box fl-fix">
+                <div class="address">
+                        {{ section.settings.contact_address }}
+                </div>
+                <div class="address">
+                        {{ section.settings.office_hours }}
+                </div>
+                <div class="address">
+                        {{ section.settings.press_inquiries }}
+                </div>
+                <div class="address">
+                        {{ section.settings.customer_services }}
+                </div>
+        </div>
 </div>
+
 
 {% schema %}
   {
     "name": "Contact",
+    "class": "d-tbc w50 va-t",
     "settings": [
 				{
 					"type":	"html",

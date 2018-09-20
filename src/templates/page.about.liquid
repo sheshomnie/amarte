@@ -11,7 +11,43 @@
 {% section 'about-ingredients' %}
 
 {% comment %} About Press {% endcomment %}
-{% section 'about-press' %}
+{% section 'from-the-press' %}
 
 {% comment %} About FAQ's {% endcomment %}
 {% section 'about-faq' %}
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        jQuery('.ingredient-heading').on('click', function(){
+            var ingredientTitle = $(this).find('strong').text();
+            var ingredientContent = $(this).parent().find('.short-info p').text();
+            $('.ingredient-popup .title strong').text(ingredientTitle);
+            $('.ingredient-popup .short-info p').text(ingredientContent);
+            jQuery('.ingredient-popup').addClass('open');
+        });
+        $('.about_tabs ul li a').on('click', function (event) {
+            event.preventDefault();
+            var elmId = $(this).attr('href').split('#')[1];
+            var target = $('#' + elmId + ' section');
+            var headerHeight = $('.page-header').outerHeight(true);
+            if (target.length) {            
+                $('html, body').stop().animate({
+                    scrollTop: target.offset().top - headerHeight - 30
+                }, 1000);
+            }
+        });
+        $('.about-us a.about').on('click', function (event) {
+            event.preventDefault();
+            var elmId = $(this).attr('href').split('#')[1];
+            if(elmId != ''){
+                var target = $('#' + elmId + ' section');
+                var headerHeight = $('.page-header').outerHeight(true);
+                if (target.length) {            
+                    $('html, body').stop().animate({
+                        scrollTop: target.offset().top - headerHeight - 30
+                    }, 1000);
+                }
+            }
+        });
+    });
+</script>

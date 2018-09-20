@@ -19,13 +19,13 @@
         {% assign handle = block.settings.blog_category %}
         {% assign blog_cat = blogs[handle] %}
         {% if blog_cat.articles.size > 0 %}
-            <section class="fl-fix pos-r press-layout-2">
+            <section class="fl-fix pos-r press-section">
                 <div class="full-wrapper">
-                    <div class="heading-box pos-r type-2">
-                        <h3 class="title h5">{{ blog_cat.title | escape }}</h3>
+                    <div class="heading-box ta-c pos-r">
+                        <h3 class="title">{{ blog_cat.title | escape }}</h3>
                         <a href="{{ blog_cat.url }}" class="btn" aria-label="{{ 'blogs.article.read_all' | t }}"><span>{{ 'blogs.article.read_all' | t }}</span></a>
                     </div>
-                    <ul class="{% if blog_cat.articles.size > 0 %}press-slider {% endif %}layout-2 col-3">
+                    <ul class="{% if blog_cat.articles.size > 0 %}press-slider {% endif %} col-3">
                         {% if sortBy == 'name_asc' %}
                             {% assign articles = blog_cat.articles | sort: 'title' %}
                         {% elsif sortBy == 'name_desc' %}
@@ -37,23 +37,25 @@
                         {% else %}
                             {% assign articles = blog_cat.articles | sort: 'title' %}
                         {% endif %}
-                        {% for article in articles %}
+                        {% for article in articles limit: section.settings.recent_post_count %}
                             <li class="pos-r col">
                                 <div class="item fl-fix d-f fxd-c">
                                     <div class="item-box fl-fix">
                                         <figure class="fl-fix bgsz-cv pos-r" style="background-image:url({{ article.image | img_url: 'master' }});">
                                             <a href="{{ article.url }}" class="d-b pos-r">
-                                                <img src="{{ 'about-press-placeholder.gif' | asset_url }}" alt="about-press-placeholder" class="bgsz-cv-img">
+                                                <img src="{{ 'press-placeholder.gif' | asset_url  }}" alt="press-placeholder" class="bgsz-cv-img">
                                             </a>
                                         </figure>
                                         <div class="title-box fl-fix">
                                             <div class="magazine"><a href="{{ article.url }}">{{ article.excerpt }}</a></div>
-                                            <h4 class="title"> <a href="{{ article.url }}">{{ article.title }}</a></h4>
+                                            <h4 class="title"> <a href="{{ article.url }}">{{ article.title | strip_html | truncate: 150 }}</a></h4>
                                         </div>
                                     </div>
                                     <div class="tag-box fl-fix">
-                                        <div class="date"><span>{{ article.published_at | time_tag: format: 'month_day_year' }}</span></div>
-                                        <div class="tags tt-u">{{ article.tags | join: ', ' }}</div>
+                                        <div class="date"><span> {{ article.published_at | time_tag: format: 'month_day_year' }} </span></div>
+                                        {% if article.tags.size > 0 %}
+                                            <div class="tags tt-u">{{ article.tags | join: ', ' }}</div>
+                                        {% endif %}                            
                                     </div>
                                 </div>
                             </li>

@@ -21,8 +21,8 @@
                                 </a>
                             </figure>
                             <div class="title-box fl-fix">
-                                <div class="magazine"><a href="{{ article.url }}">{{ article.title }}</a></div>
-                                <h4 class="title"> <a href="{{ article.url }}">{{ article.content | strip_html | truncate: 150 }}</a></h4>
+                                <div class="magazine"><a href="{{ article.url }}">{{ article.excerpt }}</a></div>
+                                <h4 class="title"> <a href="{{ article.url }}">{{ article.title | strip_html | truncate: 150 }}</a></h4>
                             </div>
                         </div>
                         <div class="tag-box fl-fix">

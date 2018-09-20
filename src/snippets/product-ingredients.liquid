@@ -1,10 +1,11 @@
 <section class="fl-fix pos-r ingredients-section" id="ingredients">
     <div class="wrapper">
         {% if product.metafields.ingredients.key_ingredients_content != '' %}
-            <div class="row clearfix">
+            <div class="row clearfix ingredient-heading-div">
                 <div class="heading-box pos-r type-2">
                     <h4 class="title tt-u">{{ product.metafields.ingredients.key_ingredients_title }}</h4>
                 </div>
+                {% comment %} {{ product.metafields.ingredients.key_ingredients_content }} {% endcomment %}
                 {{ product.metafields.ingredients.key_ingredients_content }}
             </div>
         {% endif %}
@@ -13,9 +14,12 @@
                 <div class="heading-box pos-r type-2">
                     <h4 class="title tt-u">{{ product.metafields.ingredients.full_list_title }}</h4>
                 </div>
-                <div class="col">
+                <div class="col ingredient-heading-div">
                     <p><strong>{{ product.metafields.ingredients.full_list_subtitle }}</strong></p>
-                    <p class="ingredient-desc">{{ product.metafields.ingredients.full_list_content }}</p>
+                    {% comment %} {{ product.metafields.ingredients.full_list_content }} {% endcomment %}
+                    <div class="ingredient-desc">
+                        {{ product.metafields.ingredients.full_list_content }}
+                    </div>
                 </div>
             </div>
         {% endif %}
@@ -31,3 +35,14 @@
         {% endif %}
     </div>
 </section>
+
+<script type="text/javascript">
+    $('.ingredient-heading-div a, .ingredient-heading-div h6').click(function(e){
+        e.preventDefault();
+        var ingredientTitle = $(this).text();
+        var ingredientContent = $(this).parent().find('.ingred-benefits').text();
+        $('.ingredient-popup .title strong').text(ingredientTitle);
+        $('.ingredient-popup .short-info p').text(ingredientContent);
+        jQuery('.ingredient-popup').addClass('open');
+    })
+</script>

@@ -54,7 +54,7 @@
                         <ul>
                             {% for link in linklists[section.settings.footer_linklist].links %}
                                 <li>
-                                    <a href="{{ link.url }}"><span>{{ link.title }}</span></a>
+                                    <a class="{{ linklists[section.settings.footer_linklist].title | replace: ' ', '_' | downcase }}" href="{{ link.url }}"><span>{{ link.title }}</span></a>
                                 </li>
                             {% endfor %}
                         </ul>
@@ -91,23 +91,23 @@
                     <ul class="icons fl-fix">
                         {% if settings.social_instagram_link != blank %}
                             <li class="ig">
-                                <a href="{{ settings.social_instagram_link | escape }}"><span>Instagram</span></a>
+                                <a href="{{ settings.social_instagram_link | escape }}" target="_blank"><span>Instagram</span></a>
                             </li>
                         {% endif %}
                 
                         {% if settings.social_facebook_link != blank %}
                             <li class="fb">
-                                <a href="{{ settings.social_facebook_link | escape }}"><span>Facebook</span></a>
+                                <a href="{{ settings.social_facebook_link | escape }}" target="_blank"><span>Facebook</span></a>
                             </li>
                         {% endif %}
                         {% if settings.social_twitter_link != blank %}
                             <li class="tw">
-                                <a href="{{ settings.social_twitter_link | escape }}"><span>Twitter</span></a>
+                                <a href="{{ settings.social_twitter_link | escape }}" target="_blank"><span>Twitter</span></a>
                             </li>
                         {% endif %}
                         {% if settings.social_pinterest_link != blank %}
                             <li class="pi">
-                                <a href="{{ settings.social_pinterest_link | escape }}"><span>P Interest</span></a>
+                                <a href="{{ settings.social_pinterest_link | escape }}" target="_blank"><span>P Interest</span></a>
                             </li>
                         {% endif %}
                     </ul>
